@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+<!--kszb-->
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript">
+var v=null;
+function loadMedia( src ) {
+	v.src = src;
+	v.play();
+	files.innerText = '<li>' + v.src + '</li>';
+	var fe=document.getElementById("files");
+	var li=document.createElement("li");
+	var n=p.substr(p.lastIndexOf('/')+1);
+	li.innerText=n;
+	fe.appendChild(li);
+	files.push({name:"uploadkey"+index,path:p});
+	index++;
+	empty.style.display="none";
+}
+////////////////////
+
+var server="http://td.sthcwh.com/upload.php";
+var files=v.src;
+// 上传文件
+function upload(){
+	/*if(files.length<=0){
+		plus.nativeUI.alert("没有添加上传文件！");
+		return;
+	}*/
+	outSet("开始上传：")
+	var wt=plus.nativeUI.showWaiting();
+	var task=plus.uploader.createUpload(server,
+		{method:"POST"},
+		function(t,status){ //上传完成
+			if(status==200){
+				outLine("上传成功："+t.responseText);
+				plus.storage.setItem("uploader",t.responseText);
+				var w=plus.webview.create("uploader_ret.html","uploader_ret.html",{scrollIndicator:'none',scalable:false});
+				w.addEventListener("loaded",function(){
+					wt.close();
+					w.show("slide-in-right",300);
+				},false);
+			}else{
+				outLine("上传失败："+status);
+				wt.close();
+			}
+		}
+	);
+	task.addData("client","HelloH5+");
+	task.addData("uid",getUid());
+	for(var i=0;i<files.length;i++){
+		var f=files[i];
+		task.addFile(f.path,{key:f.name});
+	}
+	task.start();
+}
+///////////////////
+function videoFinished() {
+	back();
+}
+function videoError(e) {
+	switch (e.target.error.code) {
+     case e.target.error.MEDIA_ERR_ABORTED:
+       alert('You aborted the video playback.');
+       break;
+     case e.target.error.MEDIA_ERR_NETWORK:
+       alert('A network error caused the video download to fail part-way.');
+       break;
+     case e.target.error.MEDIA_ERR_DECODE:
+       alert('The video playback was aborted due to a corruption problem or because the video used features your browser did not support.');
+       break;
+     case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
+       alert('The video could not be loaded, either because the server or network failed or because the format is not supported.');
+       break;
+     default:
+       alert('An unknown error occurred.');
+       break;
+   }
+
+	plus.nativeUI.alert( "无效的视频资源", function(){
+		back();
+	} );
+}
+function init() {
+	v = document.getElementById("video");
+	//v.onended = videoFinished;
+}
+		</script>
+	</head>
+	<body style="text-align:center;background:#DDDDDD;" onload="init();">
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff;"></a>
+			<h1 class="mui-title">腾达云平台</h1>
+			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
+		</header>
+		<div style="width:100%;height:100%;display:table;" onclick="back();">
+			<div style="display:table-cell;vertical-align:middle;">
+				<video id="video" style="width:100%;" autoplay controls onerror="videoError(event);"></video>
+			</div>
+		</div>
+			<ul id="files" style="text-align:left;">
+				<p id="empty" style="font-size:12px;color:#C6C6C6;">无上传文件</p>
+			</ul>
+		<div class="button" onclick="upload()">上 传</div>
+		<div id="output"></div>
+<!----底部---->
+		<div style="height:60px"></div>
+		<header class="mui-bar mui-bar-nav1" style="padding-right: 15px;height:60px">
+		<header class="mui-bar mui-bar-nav1" style="padding-right: 15px;height:60px">
+			<div style="width:33.3%;height:50px;float:left;text-align:center;font-size:11px;"><a href="main.html" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-home"></span><p style="height:20px;">首页</p></a></div>
+			<div style="width:33.3%;height:50px;float:left;text-align:center;font-size:11px;"><a href="my-video.html" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-videocam"></span><p style="height:20px;">我要直播</p></a></div>
+			<div style="width:33.3%;height:50px;float:left;text-align:center;font-size:11px;"><a href="setting.html" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
+		</header>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+	<script type="text/javascript" src="js/immersed.js" ></script>
+</html>

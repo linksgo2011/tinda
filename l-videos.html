@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+		<link rel="stylesheet" href="css/demo_videoPlaySimple.css" />
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+<script src="js/setups.js"></script>
+		<style>
+			ul {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+						.msg-item {
+				padding: 8px;
+				clear: both;
+			}
+			.msg-item .mui-item-clear {
+				clear: both;
+			}
+			.msg-item .msg-user {
+				width: 38px;
+				height: 38px;
+				border: solid 1px #d3d3d3;
+				display: inline-block;
+				background: #fff;
+				border-radius: 3px;
+				vertical-align: top;
+				text-align: center;
+				float: left;
+				padding: 3px;
+				color: #ddd;
+			}
+			
+			.msg-item .msg-user-img{
+				width: 38px;
+				height: 38px;
+				display: inline-block;
+				border-radius: 3px;
+				vertical-align: top;
+				text-align: center;
+				float: left;
+				color: #ddd;
+			}
+			
+			.msg-item .msg-content {
+				display: inline-block;
+				border-radius: 5px;
+				border: solid 1px #d3d3d3;
+				background-color: #FFFFFF;
+				color: #333;
+				padding: 8px;
+				vertical-align: top;
+				font-size: 15px;
+				position: relative;
+				margin: 0px 8px;
+				max-width: 75%;
+				min-width: 35px;
+				float: left;
+			}
+			.msg-item .msg-content .msg-content-inner {
+				overflow-x: hidden;
+			}
+			.msg-item .msg-content .msg-content-arrow {
+				position: absolute;
+				border: solid 1px #d3d3d3;
+				border-right: none;
+				border-top: none;
+				background-color: #FFFFFF;
+				width: 10px;
+				height: 10px;
+				left: -5px;
+				top: 12px;
+				-webkit-transform: rotateZ(45deg);
+				transform: rotateZ(45deg);
+			}
+			.msg-item-self .msg-user,
+			.msg-item-self .msg-content {
+				float: left;
+			}
+			.msg-item-self .msg-content .msg-content-arrow {
+				left: -5px;
+				right: auto;
+			}
+			.msg-item-self .msg-content,
+			.msg-item-self .msg-content .msg-content-arrow {
+				background-color: #ddd;
+				color: #000;
+				border-color: #aaa;
+			}
+			footer .mui-icon {
+				color: #000;
+			}
+			footer .mui-icon:active {
+				color: #007AFF !important;
+			}
+			footer .mui-icon-paperplane:before {
+				content: "发送";
+			}
+			footer .mui-icon-paperplane {
+				/*-webkit-transform: rotateZ(45deg);
+				transform: rotateZ(45deg);*/
+				
+				font-size: 16px;
+				word-break: keep-all;
+				line-height: 100%;
+				padding-top: 6px;
+				color: rgba(0, 135, 250, 1);
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff;"></a>
+			<h1 class="mui-title">腾达云平台</h1>
+			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
+		</header>
+    <div class="mui-content">
+        <p style="text-align:center;color:#0000ff;padding-top:8px;height:25px;" id="title"><b>视频直播室</b></p>
+ 		<!----二手---->
+		<ul class="mui-table-view mui-grid-view">
+		    <ul id="list" class="mui-table-view mui-grid-view">
+            	<p style="text-align:center;"><span class="mui-spinner"></span></p>
+	        </ul>   
+	    </ul>   
+    </div>	
+<!----底部---->
+		<div style="height:60px"></div>
+		<header class="mui-bar mui-bar-nav1" style="padding-right: 15px;height:60px">
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a href="main.html" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-home"></span><p style="height:20px;">首页</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px"><a id='promptBtn' style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-chatbubble"></span><p style="height:20px;">我要评论</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a id='showUserPicker' style="color:#FFFFFF;"><span style="height:20px;"  class="mui-icon mui-icon-star"></span><p style="height:20px;">评分</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a href="my-video.html" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-videocam"></span><p style="height:20px;">我要直播</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a href="setting.html" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
+		</header>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/app.js"></script>
+    <script src="js/mui.lazyload.js"></script>
+    <script src="js/mui.lazyload.img.js"></script>
+    <script>
+        mui.init();
+        var url = "http://td.sthcwh.com/videos.php";     
+        mui.ajax(url,{ 
+            data: {
+                'type': 1,
+                'sey': "zlcx",//关键字
+                'limit': 1//输出记录数
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:10000,//超时时间设置为10秒；
+            success:function(data){
+                //list.innerHTML = JSON.stringify(data);      
+                var songs=data;
+
+                var list = document.getElementById("list");
+                var fragment = document.createDocumentFragment();
+                var li;
+                mui.each(songs,function(index,item){
+                     var id = item.id,  
+                         zbtitle = item.zbtitle,    
+                         zbdate = item.zbdate;    
+                         zbbianh = item.zbbianh;    
+                    list.innerHTML = null;
+                    li = document.createElement('li'); 
+                    li.className = 'mui-table-view-cell mui-media mui-col-xs-6';
+                    li.innerHTML = '<a id='+ id +' data-audio='+ zbbianh +'>'+
+                                        '<img class="mui-media-object" src="images/img_clickToPlay.jpg">'+
+                                        '<div class="mui-media-body" style="font-size:11px;height:50px">'+zbtitle+
+                                            '<p class="mui-ellipsis" style="font-size:11px;">房间号：'+zbbianh+'</p>'+
+                                            '<p class="mui-ellipsis" style="font-size:11px;">时     间：'+zbdate+'</p>'+
+                                        '</div>'+
+                                    '</a>';
+                    fragment.appendChild(li);
+                })
+
+                list.appendChild(fragment)
+
+                mui(document).imageLazyload({
+                    placeholder: '../img/60x60.gif'
+                });
+            },
+            error:function(xhr,type,errorThrown){
+                //异常处理；
+                console.log(type);
+            }
+        });
+        //列表点击事件
+        mui("#list").on('tap','li a',function(){
+            var id = this.getAttribute('id');
+            var audio = this.getAttribute('data-audio');
+            //打开详情页面
+            mui.openWindow({
+                url:'l-video.html',
+                id:'l-video',
+                extras:{
+                    zlcxId:id,
+                    zlcxName:audio
+                }
+            });
+        });
+    </script>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			.mui-input-group label {
+				width: 26%;
+				text-align: right;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 74%;
+			}
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			.mui-content-padded {
+				margin-top: 25px;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff;"></a>
+			<h1 class="mui-title">腾达云平台</h1>
+		</header>
+		<div class="mui-content">
+        <p style="text-align:center;color:#0000ff;"><b>免费注册</b></p>
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>账号</label>
+					<input id='title' type="text" class="mui-input-clear mui-input" placeholder="建议使用手机号">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id='pass1' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+				<div class="mui-input-row">
+					<label>确认</label>
+					<input id='pass2' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
+				</div>
+				<div class="mui-input-row">
+					<label>类型</label>
+					<input id='leixing' type="text" class="mui-input-clear mui-input" value="苹果安卓双系统">
+				</div>
+				<!--div class="mui-input-row">
+					<label>经销商</label>
+					<input id='name' type="text" class="mui-input-clear mui-input" placeholder="填写购买经销商的QQ名字(注:不是QQ号码)">
+				</div-->
+				<div class="mui-input-row">
+					<label>姓名</label>
+					<input id='email' type="text" class="mui-input-clear mui-input" placeholder="请输入姓名">
+				</div>
+				<div class="mui-input-row">
+					<label>QQ</label>
+					<input id='area' type="text" class="mui-input-clear mui-input" placeholder="请输入QQ号">
+				</div>
+				<!--div class="mui-input-row">
+					<label>地址</label>
+					<input id='address' type="text" class="mui-input-clear mui-input" placeholder="请输入联系地址">
+				</div-->
+				<div class="mui-input-row">
+					<label>电话</label>
+					<input id='phome' type="text" class="mui-input-clear mui-input" placeholder="务必填写真实电话">
+				</div>
+				<div class="mui-input-row">
+					<label>提示</label>
+					<input id='comment' type="text" class="mui-input-clear mui-input" placeholder="用于找回密码使用！">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button type="button" onclick="b()" class="mui-btn mui-btn-block mui-btn-primary">注册</button>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+function b(){
+//获取到账号和密码的文本框对象
+					var regtitle = document.querySelector('input[id="title"]').value;//用户名
+					var regpass1 = document.querySelector('input[id="pass1"]').value;//密码
+					var regpass2 = document.querySelector('input[id="pass2"]').value;//确认密码
+//					var regleixing = document.querySelector('input[id="leixing"]').value;//类型
+//					var regname = document.querySelector('input[id="name"]').value;//经销商
+					var regemail = document.querySelector('input[id="email"]').value;//姓名
+					var regarea = document.querySelector('input[id="area"]').value;//QQ
+//					var regaddress = document.querySelector('input[id="address"]').value;//地址
+					var regphome = document.querySelector('input[id="phome"]').value;//电话
+					var regcomment = document.querySelector('input[id="comment"]').value;//系列号
+	//非空校验
+	if(!regtitle){
+		mui.toast('用户名不能为空！');
+		return;
+	}
+	if(!regpass1){
+		mui.toast('请输入密码！');
+		return;
+	}
+	if(regpass1!=regpass2){
+		mui.toast('两处密码不一致！');
+		return;
+	}
+	if(!regphome){
+		mui.toast('电话不能为空！');
+		return;
+	}
+	if(!regcomment){
+		mui.toast('请输入系列号！');
+		return;
+	}
+ 	//远程提交
+/* 		mui.post('http://admin.tengdakey.com/reguser.php',{ regtitle:regtitle,regpass1:regpass1,regleixing:regleixing,regname:regname,regemail:regemail,regarea:regarea,regaddress:regaddress,regphome:regphome,regcomment:regcomment},//请求，地址是服务器本机的ip地址//要传送的数据
+	    function(data){ //服务器返回数据回来时应该做什么的函数
+	   if(data=='1'){
+                mui.toast = '用户名已占用，请重新输入！';
+       }if(data=='2'){
+                mui.toast = '系列号已占用，请重新输入！';
+       }if(data=='3'){
+                mui.toast = '错误！';
+                mui.openWindow({
+                url:'login.html',
+                });	
+		 return;
+	   }
+	   });
+*/
+ 		mui.post('http://admin.tengdakey.com/reguser.php',{regtitle:regtitle,regpass1:regpass1,regemail:regemail,regarea:regarea,regphome:regphome,regcomment:regcomment},//请求，地址是服务器本机的ip地址//要传送的数据
+	    function(data){ //服务器返回数据回来时应该做什么的函数
+	   if(data=='1'){
+		mui.toast('用户名已占用，请重新输入！');
+		return;
+       }else if(data=='2'){
+		mui.toast('该提示问题已经存在，请更换！');
+		return;
+       }else if(data=='3'){
+			var info = document.getElementById("info");
+//			document.getElementById("alertBtn").addEventListener('tap', function() {
+				mui.alert('会员注册成功，请联系经销商开通！', '会员注册', function() {
+//					info.innerText = '你刚关闭了警告框';
+                    app.setState({});
+                    plus.webview.getLaunchWebview().show("pop-in");
+				});
+//			});
+/*                plus.webview.create('login.html');
+                mui.openWindow({
+                url:'login.html',
+                id:'login',
+                });	
+*/		return;
+       }else if(data=='4'){
+		mui.toast('注册失败！');
+		return;
+       }else{
+		mui.toast('请检查网络连接是否正常 ！');
+		return;
+		 }
+	   });
+}
+		</script>
+	</body>
+
+</html>

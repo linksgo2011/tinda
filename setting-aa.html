@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+<script src="js/setups.js"></script>
+
+		<style>
+			ul {
+				font-size: 14px;
+				color: #000;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff;"></a>
+			<h1 class="mui-title">更多</h1>
+			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
+		</header>
+        <div class="mui-content">
+        <!------------------->
+						<ul class="mui-table-view mui-table-view-chevron">
+							<li class="mui-table-view-cell">
+								<a id="rate" class="mui-navigate-right">推荐好友</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a id="share" class="mui-navigate-right">消息中心</a>
+							</li>
+						</ul>
+						<p style="height:5px;"</p>
+						<ul class="mui-table-view mui-table-view-chevron">
+							<li class="mui-table-view-cell">
+								<a href="#lock" class="mui-navigate-right">关于我们</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="#lock" class="mui-navigate-right">客服热线</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="#lock" class="mui-navigate-right">版本升级</a>
+							</li>
+						</ul>
+						<p style="height:5px;"</p>
+						<ul class="mui-table-view mui-table-view-chevron">
+							<li class="mui-table-view-cell">
+								<a href="#lock" class="mui-navigate-right">技术支持</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="#lock" class="mui-navigate-right">系统设置</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="personal.html" class="mui-navigate-right">个人中心</a>
+							</li>
+						</ul>
+						<p style="height:5px;"</p>
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell" style="text-align: center;">
+								<a id='exit'>退出</a>
+							</li>
+						</ul>
+						<p style="height:5px;"</p>
+        </div>
+<!----底部---->
+		<div style="height:60px"></div>
+		<header class="mui-bar mui-bar-nav1" style="padding-right: 15px;height:60px">
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a href="main.html" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-home"></span><p style="height:20px;">首页</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px"><a href="zlcx.html" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-search"></span><p style="height:20px;">资料查询</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a href="#" style="color:#FFFFFF;"><span style="height:20px;padding-top:11px;"  class="mui-icon-extra mui-icon-extra-cart"></span><p style="height:20px;">购物商城</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a href="l-video.html" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-videocam"></span><p style="height:20px;">视频直播</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a href="setting.html" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
+		</header>
+	<script src="js/mui.min.js"></script>
+	<script src="js/app.js"></script>
+	</body>
+	<script>
+		mui.init();
+		 //退出操作******************
+		document.getElementById('exit').addEventListener('tap', function() {
+			if (mui.os.ios) {
+				app.setState({});
+				mui.openWindow({
+					url: 'login.html',
+					id: 'login',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+				return;
+			}
+			var btnArray = [{
+				title: "注销当前账号"
+			}, {
+				title: "直接关闭应用"
+			}];
+			plus.nativeUI.actionSheet({
+				cancel: "取消",
+				buttons: btnArray
+			}, function(event) {
+				var index = event.index;
+				switch (index) {
+					case 1:
+						//注销账号
+						app.setState({});
+						/*
+						 * 注意：
+						 * 1、因本示例应用启动页就是登录页面，因此注册成功后，直接显示登录页即可；
+						 * 2、如果真实案例中，启动页不是登录页，则需修改，使用mui.openWindow打开真实的登录页面
+						 */
+						plus.webview.getLaunchWebview().show("pop-in");
+						//若启动页不是登录页，则需通过如下方式打开登录页
+//						mui.openWindow({
+//							url: 'login.html',
+//							id: 'login',
+//							show: {
+//								aniShow: 'pop-in'
+//							}
+//						});
+						break;
+					case 2:
+						plus.runtime.quit();
+						break;
+				}
+			});
+		}, false);
+</script>
+</html>
