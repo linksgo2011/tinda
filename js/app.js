@@ -1,5 +1,13 @@
 
 (function($, owner) {
+	
+	/**
+	 * 项目的基本配置 
+	 */
+	owner.config = {
+		baseUrl:"http://admin.tengdakey.com/"
+//		baseUrl:"http://localhost/tinda/"
+	}
 	/**
 	 * 用户登录
 	 **/
