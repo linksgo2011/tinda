@@ -25,8 +25,9 @@
 		mui.post('http://admin.tengdakey.com/td2017.php',{ name:loginInfo.account,psw:loginInfo.password,ustoke:loginInfo.usertoke},//请求，地址是服务器本机的ip地址//要传送的数据
 	    function(data){ //服务器返回数据回来时应该做什么的函数
 	   if(data=='1'){
-//	     localStorage.setItem('username',loginInfo.account);
-//	     localStorage.setItem('usertoke',loginInfo.usertoke);
+	     localStorage.setItem('username',loginInfo.account);
+	     localStorage.setItem('usertoke',loginInfo.usertoke);
+	     
 	     var username=JSON.stringify({"name":loginInfo.account,"toke":loginInfo.usertoke});
 	         localStorage.setItem("userzl",username);
 	     return owner.createState(loginInfo.account,loginInfo.usertoke, callback);
