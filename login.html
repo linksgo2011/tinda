@@ -138,7 +138,8 @@
 						"id": 'main',
 						"url": 'main.html'
 					});
-					var main_loaded_flag = false;
+
+					var main_loaded_flag = $.webviews.main?true:false;
 					mainPage.addEventListener("loaded",function () {
 						main_loaded_flag = true;
 					});
