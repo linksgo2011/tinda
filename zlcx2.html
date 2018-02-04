@@ -7,7 +7,7 @@
 		<title></title>
 		<link href="css/mui.min.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
-<script src="js/setups.js"></script>
+
 		<style>
 			ul {
 				font-size: 14px;
@@ -67,7 +67,7 @@ mui.init();
                title.innerHTML = '<b>'+ zlname + '</b>';
  
         //}
-var url = "http://admin.tengdakey.com/ppimages.php";
+var url = app.config.baseUrl + "ppimages.php";
         mui.ajax(url,{ 
             data: {
                 'sey': "zlcx3",//关键字
@@ -82,7 +82,7 @@ var url = "http://admin.tengdakey.com/ppimages.php";
             },
         });
 ///////////////////////////////////////////////////////////////////////////
-var url = "http://admin.tengdakey.com/td2017cx.php";
+var url = app.config.baseUrl + "td2017cx.php";
         mui.ajax(url,{ 
             data: {
                 'sey': "zlcx2",//关键字

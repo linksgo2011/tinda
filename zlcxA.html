@@ -7,7 +7,7 @@
 		<title></title>
 		<link href="css/mui.min.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
-<script src="js/setups.js"></script>
+
 		<style>
 			ul {
 				font-size: 14px;
@@ -78,7 +78,7 @@
 </script>
 <script>
         mui.init();
-        var url = "http://admin.tengdakey.com/td2017cx.php";     
+        var url = app.config.baseUrl + "td2017cx.php";
         mui.ajax(url,{ 
             data: {
                 'type': 1,
@@ -158,7 +158,7 @@
 			function pulldownRefresh() {
 				setTimeout(function() {
         mui.init();
-        var url = "http://admin.tengdakey.com/td2017cx.php";     
+        var url = app.config.baseUrl + "td2017cx.php";
         mui.ajax(url,{ 
             data: {
                 'type': 1,
@@ -214,7 +214,7 @@
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh(); //参数为true代表没有更多数据了。
         mui.init();
-        var url = "http://admin.tengdakey.com/td2017cx.php";     
+        var url = app.config.baseUrl + "td2017cx.php";
         mui.ajax(url,{ 
             data: {
                 'type': 1,
