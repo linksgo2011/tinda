@@ -1,5 +1,13 @@
 
 (function($, owner) {
+	
+	/**
+	 * 项目的基本配置 
+	 */
+	owner.config = {
+		baseUrl:"http://admin.tengdakey.com/"
+//		baseUrl:"http://localhost/tinda/"
+	}
 	/**
 	 * 用户登录
 	 **/
@@ -8,20 +16,23 @@
 		loginInfo = loginInfo || {};
 		loginInfo.account = loginInfo.account || '';
 		loginInfo.password = loginInfo.password || '';
-		loginInfo.usertoke = loginInfo.usertoke || '';
+		loginInfo.usertoke = loginInfo.usertoke || localStorage.getItem('usertoke');
 		if (loginInfo.account.length < 1) {
 			return callback('请输入账号！');
 		}
 		if (loginInfo.password.length < 1) {
 			return callback('请输入密码！');
 		}
-//	    var usertoke = "";
-        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for( var i=0; i < 7; i++ )
-          loginInfo.usertoke += possible.charAt(Math.floor(Math.random() * possible.length));
-		var users = JSON.parse(localStorage.getItem('$users') || '[]');
+		
+		if(!loginInfo.usertoke){
+			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+			for( var i=0; i < 7; i++ )
+				loginInfo.usertoke += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+ 
 		/////
 		mui.init();
+		
 		mui.post('http://admin.tengdakey.com/td2017.php',{ name:loginInfo.account,psw:loginInfo.password,ustoke:loginInfo.usertoke},//请求，地址是服务器本机的ip地址//要传送的数据
 	    function(data){ //服务器返回数据回来时应该做什么的函数
 	   if(data=='1'){
