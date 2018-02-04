@@ -7,7 +7,7 @@
 		<title></title>
 		<link href="css/mui.min.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
-<script src="js/setups.js"></script>
+
 		<style>
 			ul {
 				font-size: 14px;
@@ -220,7 +220,7 @@ mui.init();
  
         //}
 ///////////////////////////////////////////////////////////////////////////
-var url = "http://admin.tengdakey.com/td2017cx.php";
+var url = app.config.baseUrl + "td2017cx.php";
         mui.ajax(url,{ 
             data: {
                 'sey': "zlcx3",//关键字
@@ -281,8 +281,8 @@ var url = "http://admin.tengdakey.com/td2017cx.php";
             });
         });
     </script>
-<!---img width="100%" class="file-pic" data-preview-src="" data-preview-group="1" src="http://admin.tengdakey.com/kindeditor/attached/image/20171211/20171211120856_16292.jpg" >
-<img width="100%" class="file-pic" data-preview-src="" data-preview-group="1" src="http://admin.tengdakey.com/kindeditor/attached/image/20171209/20171209172554_35282.jpg" --->
+<!---img width="100%" class="file-pic" data-preview-src="" data-preview-group="1" src=app.config.baseUrl + "kindeditor/attached/image/20171211/20171211120856_16292.jpg" >
+<img width="100%" class="file-pic" data-preview-src="" data-preview-group="1" src=app.config.baseUrl + "kindeditor/attached/image/20171209/20171209172554_35282.jpg" --->
 <script src="js/mui.zoom.js"></script>
 <script src="js/mui.previewimage.js"></script>
 <script type="text/javascript">

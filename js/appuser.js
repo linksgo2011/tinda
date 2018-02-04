@@ -6,7 +6,7 @@ if(userszl==null){
 setTimeout("alus1()",10000);//10秒后再次执行
 		 return;
 }else{
-		mui.post('http://admin.tengdakey.com/usersyanz.php',{ username1:userszl.name,usertoke1:userszl.toke},//请求，地址是服务器本机的ip地址//要传送的数据
+		mui.post(app.config.baseUrl + 'usersyanz.php',{ username1:userszl.name,usertoke1:userszl.toke},//请求，地址是服务器本机的ip地址//要传送的数据
 	    function(data){ //服务器返回数据回来时应该做什么的函数
 	   if(data=='1'){
 //	   	mui.toast('不为空！');

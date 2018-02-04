@@ -33,7 +33,7 @@
 		/////
 		mui.init();
 		
-		mui.post('http://admin.tengdakey.com/td2017.php',{ name:loginInfo.account,psw:loginInfo.password,ustoke:loginInfo.usertoke},//请求，地址是服务器本机的ip地址//要传送的数据
+		mui.post(this.config.baseUrl + 'td2017.php',{ name:loginInfo.account,psw:loginInfo.password,ustoke:loginInfo.usertoke},//请求，地址是服务器本机的ip地址//要传送的数据
 	    function(data){ //服务器返回数据回来时应该做什么的函数
 	   if(data=='1'){
 	     localStorage.setItem('username',loginInfo.account);

@@ -144,7 +144,7 @@
 		return;
 		}
 ///////////////////////////////////////////////////////////////////////////
-        var url = "http://admin.tengdakey.com/homegg.php";
+        var url = app.config.baseUrl + "homegg.php";
         mui.ajax(url,{ 
             data: {
                 'sey': 1
@@ -166,7 +166,7 @@
         <script>
         	mui.init();
 			//account1.innerText = localStorage.getItem("username");
-/* 		mui.post('http://admin.tengdakey.com/indexlz1.php',//请求，地址是服务器本机的ip地址//要传送的数据
+/* 		mui.post(app.config.baseUrl + 'indexlz1.php',//请求，地址是服务器本机的ip地址//要传送的数据
 	    function(data){ //服务器返回数据回来时应该做什么的函数
                 list.innerHTML = data;
 		        return;
@@ -175,7 +175,7 @@
 */
 /////////////////////////
 // 获取并初始化轮播组件
-        var url = "http://admin.tengdakey.com/indexlz.php";
+        var url = app.config.baseUrl + "indexlz.php";
         mui.ajax(url,{ 
             data: {
                 'type': 1,
