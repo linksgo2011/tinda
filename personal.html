@@ -96,8 +96,7 @@
 			success: function(data) {
 				var songs = data;
 				mui.each(songs, function(index, item) {
-					var names1 = item.names,
-						tels1 = item.tels,
+					var tels1 = item.tels,
 						adds1 = item.adds;
 					daoqdate1 = item.daoqdate;
 					danqjf1 = item.danqjf;
@@ -105,9 +104,9 @@
 					weigs1 = item.weigs;
 					daoqdate.innerText = '到期时间：' + daoqdate1; //帐户
 					danqjf.innerText = '当前积分：' + danqjf1; //帐户
-					names.innerHTML = '姓名：' + names1;
+					names.innerHTML = '姓名：' + item.email;
 					tels.innerHTML = '电话：' + tels1;
-					adds.innerHTML = '地址：' + adds1;
+					adds.innerHTML = '提示：' + item.comment;
 					weigs.innerHTML = '违规：' + weigs1 + '次';
 				})
 			}
