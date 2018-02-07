@@ -77,6 +77,7 @@
 <SCRIPT LANGUAGE="JavaScript"> 
 //<!-- 
 mui.init();
+getSetting();
 
 var maxtime = 10*60-1 //一个小时，按秒计算，自己调整!
 function CountDown(){ 
@@ -94,6 +95,12 @@ document.all["PINpass"].innerHTML=msg;
 }
 } 
 //-->
+var closedTip = "抱歉！请在工作时间提交！";
+function getSetting(){
+	mui.getJSON(app.config.baseUrl + "pscxsz.php",function(setting){
+		closedTip = setting.closed_tip;
+	});
+}
 
 function myFun1(){
 	var papingpInputA=document.getElementById("papingp");
@@ -169,7 +176,7 @@ setTimeout("c()",10000);//10秒后再次执行
        }else if(data=='2'){
                 tipElement.innerHTML = '<p style="text-align:center;">尚未查询到结果，请稍后再试！</p>';
        }else if(data=='4'){
-                tipElement.innerHTML = '<p style="text-align:center;">抱歉！请在工作时间提交！</p>';
+                tipElement.innerHTML = '<p style="text-align:center;">'+closedTip+'</p>';
        }else if(data=='5'){
                 tipElement.innerHTML = '<p style="text-align:center;">抱歉！今日查询数已用完！</p>';
        }else if(data=='6'){
