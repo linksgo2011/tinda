@@ -165,7 +165,7 @@ function b(){
 		return;
 	}
     tipElement.innerHTML = '<p style="text-align:center;"><span class="mui-spinner"></span>查询中...</p>';
-    PINpass.innerHTML = "";
+
  	//远程提交
  		mui.post(app.config.baseUrl + 'passcx1.php',{ papingp:papingpValue1,paxingqh:paxingqhValue1,panianf:panianfValue1,pacjh:pacjhValue1,username:userValue,pachex:pachexValue1},//请求，地址是服务器本机的ip地址//要传送的数据
 	    function(data){ //服务器返回数据回来时应该做什么的函数
@@ -224,7 +224,7 @@ setTimeout("c()",1000);//10秒后再次执行
        }else if(data=='2'){
                 tipElement.innerHTML = '<p style="text-align:center;">尚未查询到结果，请稍后再试！</p>';
        }else if(data=='4'){
-                tipElement.innerHTML = '<p style="text-align:center;">抱歉！请在工作时间提交！</p>';
+                tipElement.innerHTML = '<p style="text-align:center;">'+closedTip+'</p>';
        }else if(data=='5'){
                 tipElement.innerHTML = '<p style="text-align:center;">抱歉！今日查询数已用完！</p>';
        }else if(data=='6'){
