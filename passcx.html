@@ -60,6 +60,7 @@
 							<option value="2020">2020</option>
                         </select>
 					</div>
+					<div id="PINpass" style="font-size:15px;color:#ff0000;line-height:30px;text-align:center;"></div>
 					<div id="tip" style="font-size:15px;color:#ff0000;line-height:30px;text-align:center;"></div>
 		</form>
 
@@ -78,6 +79,8 @@
 //<!-- 
 mui.init();
 getSetting();
+
+var tipElement = document.getElementById("tip");
 
 var maxtime = 10*60-1 //一个小时，按秒计算，自己调整!
 function CountDown(){ 
@@ -152,7 +155,6 @@ function b(){
 	var pacjhValue1 = pacjhInput1.value;
 		var userszl = JSON.parse(localStorage.getItem("userzl"));
 	var userValue=userszl.name;
-	var tipElement = document.getElementById("tip");
 	//非空校验
 	if(!papingpValue1||!pachexValue1||!panianfValue1||!pacjhValue1){
 		mui.toast('请认真填写');
@@ -163,6 +165,7 @@ function b(){
 		return;
 	}
     tipElement.innerHTML = '<p style="text-align:center;"><span class="mui-spinner"></span>查询中...</p>';
+    PINpass.innerHTML = "";
  	//远程提交
  		mui.post(app.config.baseUrl + 'passcx1.php',{ papingp:papingpValue1,paxingqh:paxingqhValue1,panianf:panianfValue1,pacjh:pacjhValue1,username:userValue,pachex:pachexValue1},//请求，地址是服务器本机的ip地址//要传送的数据
 	    function(data){ //服务器返回数据回来时应该做什么的函数
@@ -185,7 +188,8 @@ setTimeout("c()",10000);//10秒后再次执行
                 //clearInterval(timer);
                 maxtime = 0; 
                 PINpass.innerHTML = "&nbsp;&nbsp;PIN："+data;
-		 return;
+		 		tipElement.innerHTML = '<p style="text-align:center;">查询完成</p>';
+		 		return;
 		 }
 	   });
 }
@@ -216,15 +220,15 @@ function c(){
 setTimeout("c()",1000);//10秒后再次执行
 ///////////////////////////////
        }else if(data=='3'){
-                PINpass.innerHTML = '<p style="text-align:center;">请检查车架号是否正确!</p>';
+                tipElement.innerHTML = '<p style="text-align:center;">请检查车架号是否正确!</p>';
        }else if(data=='2'){
-                PINpass.innerHTML = '<p style="text-align:center;">尚未查询到结果，请稍后再试！</p>';
+                tipElement.innerHTML = '<p style="text-align:center;">尚未查询到结果，请稍后再试！</p>';
        }else if(data=='4'){
-                PINpass.innerHTML = '<p style="text-align:center;">抱歉！请在工作时间提交！</p>';
+                tipElement.innerHTML = '<p style="text-align:center;">抱歉！请在工作时间提交！</p>';
        }else if(data=='5'){
-                PINpass.innerHTML = '<p style="text-align:center;">抱歉！今日查询数已用完！</p>';
+                tipElement.innerHTML = '<p style="text-align:center;">抱歉！今日查询数已用完！</p>';
        }else if(data=='6'){
-                PINpass.innerHTML = '<p style="text-align:center;">车架码格式有误!<br />由大写字母(O,I外)和数字组成的17位编码。</p>';
+                tipElement.innerHTML = '<p style="text-align:center;">车架码格式有误!<br />由大写字母(O,I外)和数字组成的17位编码。</p>';
        }else{
                 //clearInterval(timer);
                 maxtime = 0; 
