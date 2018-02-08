@@ -13,10 +13,7 @@
 				font-size: 14px;
 				color: #000;
 			}
-			
-			.mui-btn {
-				padding: 10px;
-			}
+
 		</style>
 	</head>
 
@@ -33,9 +30,16 @@
 					<p id="dangqzf"></p>
 					<p id="daoqdate"></p>
 					<p id="danqjf"></p>
-					<p class="mui-btn">
+					
+				</li>
+				<li style="color:#000000;padding: 20px;;">
+					<span class="mui-btn">
 						<a onclick="userxxmm()" style="float:left:font-size:15px;">修改密码</a>
-					</p>
+					</span>
+					<span class="mui-btn">
+						<a onclick="updateProfile()" style="float:left:font-size:15px;">修改资料</a>
+						
+					</span>
 				</li>
 			</ul>
 			<p style="height:28px;line-height: 28px;margin-left:10px;margin-top:5px;">详细信息：</p>
@@ -152,6 +156,13 @@
 			mui.openWindow({
 				url: 'userxxmm.html',
 				id: 'userxxmm',
+			});
+		}
+		
+		function updateProfile(){
+			mui.openWindow({
+				url: 'updateProfile.html',
+				id: 'updateProfile',
 			});
 		}
 	</script>
