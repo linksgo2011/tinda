@@ -30,11 +30,10 @@
 		<div class="mui-content">
 			<div id="PINpass"></div>
 			<div id="slider" class="mui-slider">
-			<div id="list" class="mui-slider-group mui-slider-loop">
-            </div>
-			<div class="mui-slider-indicator">
-				<div class="mui-indicator mui-active"></div>
-				<div class="mui-indicator"></div>
+				<div id="list" class="mui-slider-group mui-slider-loop">
+	            </div>
+				<div class="mui-slider-indicator">
+				</div>
 			</div>
 		</div>
 		    <h5 class="mui-media-body" style="background-color:#efeff4;line-height:25px;height:25px;padding:0 8px 0 8px;color:#ff0000;font-size:11px;">
@@ -137,6 +136,7 @@
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onClick="settingA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
 		</header>
 		<script src="js/mui.min.js"></script>
+		<script src="js/zepto.min.js"></script>
 		<script src="js/app.js"></script>
 	<script>
        function gnkfz(){
@@ -192,21 +192,42 @@
                 var list = document.getElementById("list");
                 var fragment = document.createDocumentFragment();
                 var div;
+                var slides = [];
+                var firstSlide;
                 mui.each(songs,function(index,item){
                      var id = item.id,  
                          name = item.imagesA;    
                          lzurl = item.urlA;    
-                    list.innerHTML = null;
                     li = document.createElement('div'); 
                     li.className = 'mui-slider-item';
                     li.innerHTML = '<a href="'+lzurl+'"><img src="'+name+'"/></a>';
-                    fragment.appendChild(li);
-                })
+                    slides.push(li);
+					$("#slider .mui-slider-indicator").append('<div class="mui-indicator"></div>');
 
-                list.appendChild(fragment)
+                    if(index == 0){
+                    		firstSlide = $(li).clone().get(0);
+                    		firstSlide.className = "mui-slider-item mui-slider-item-duplicate";
+                    }
+                    if(songs.length == (index+1) ){
+                    		// 最后一张放到头部
+                    		var lastSlide = $(li).clone().get(0);
+                    		lastSlide.className = "mui-slider-item mui-slider-item-duplicate";
+                    		
+                    		slides.unshift(lastSlide);
+                    		slides.push(firstSlide);
+                    }
+                })
+                
+
+                for (var i=0;i<slides.length;i++) {
+
+                		list.appendChild(slides[i])
+                }
+            
+                
                 	var slider = mui("#slider");
 	        		slider.slider({
-							interval: 5000
+							interval: 3000
 				});
             	}
             });
