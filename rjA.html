@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+
+		<style>
+			ul {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+        
+        <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				  <p style="text-align:center;color:#0000ff;" id="title"></p>
+				<!--数据列表-->
+				<ul id="list1" class="mui-table-view mui-table-view-chevron">
+					
+				</ul>
+			</div>
+		</div>
+        
+        
+        
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+    <script src="js/mui.lazyload.js"></script>
+    <script src="js/mui.lazyload.img.js"></script>
+<script>
+mui.init();
+
+var userszl = JSON.parse(localStorage.getItem("userzl"));
+       //B页面onload从服务器获取列表数据；
+        //window.onload = function(){
+            //从服务器获取数据
+            
+            //业务数据获取完毕，并已插入当前页面DOM；
+            //注意：若为ajax请求，则需将如下代码放在处理完ajax响应数据之后；
+            mui.plusReady(function(){
+                var self = plus.webview.currentWebview();
+                var zlid = self.zlcxId;
+                var zlname = self.zlcxName;
+               title.innerHTML = '<b>日志查询</b>';
+ 
+        //}
+///////////////////////////////////////////////////////////////////////////
+var url = app.config.baseUrl + "rj.php";
+        mui.ajax(url,{ 
+            data: {
+                'sey': "zlcx1",//关键字
+                'userszl': userszl.name//关键字
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:15000,//超时时间设置为10秒；
+            success:function(data){
+                list1.innerHTML = data;
+            
+            },
+/*            error:function(xhr,type,errorThrown){
+                //异常处理；
+       		mui.toast('加载失败！');
+                console.log(type);
+            }*/
+        });
+//////////////////////////////////////////////////////        
+});
+    </script>
+	</body>
+		<script>
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						callback: pulldownRefresh
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+			/**
+			 * 下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+        mui.init();
+var url = app.config.baseUrl + "rj.php";
+        mui.ajax(url,{ 
+            data: {
+                'sey': "zlcx1",//关键字
+                'sey1': zlid//关键字
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:15000,//超时时间设置为10秒；
+            success:function(data){
+                //list1.innerHTML = JSON.stringify(data);      
+                var songs=data;
+
+                var list1 = document.getElementById("list1");
+                var fragment = document.createDocumentFragment();
+                var li;
+                mui.each(songs,function(index,item){
+                     var id = item.id,  
+                         name = item.name,    
+                         logoA = item.logoA;    
+                    list1.innerHTML = null;
+                    li = document.createElement('li'); 
+                    li.className = 'mui-table-view-cell mui-media';
+                    li.innerHTML = '<a class="mui-navigate-right" id='+ id +' data-audio='+ name +'>'+
+                                        '<img class="mui-media-object mui-pull-left" src="'+ logoA +'">'+
+                                        '<div class="mui-media-body" style="color:#000;line-height:40px;">'+name+
+//                                        '<p class="mui-ellipsis">'+zlid+'</p>'+
+                                        '</div>'+
+                                    '</a>';
+                    fragment.appendChild(li);
+                })
+
+                list1.appendChild(fragment)
+
+                mui(document).imageLazyload({
+                    placeholder: '../img/60x60.gif'
+                });
+            },
+/*            error:function(xhr,type,errorThrown){
+                //异常处理；
+       		mui.toast('加载失败！');
+                console.log(type);
+            }*/
+        });
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 1500);
+			}
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+var url = app.config.baseUrl + "rj.php";
+        mui.ajax(url,{ 
+            data: {
+                'sey': "zlcx1",//关键字
+                'sey1': zlid//关键字
+            },
+            dataType:'json',//服务器返回json格式数据
+            type:'post',//HTTP请求类型
+            timeout:15000,//超时时间设置为10秒；
+            success:function(data){
+                //list1.innerHTML = JSON.stringify(data);      
+                var songs=data;
+
+                var list1 = document.getElementById("list1");
+                var fragment = document.createDocumentFragment();
+                var li;
+                mui.each(songs,function(index,item){
+                     var id = item.id,  
+                         name = item.name,    
+                         logoA = item.logoA;    
+                    list1.innerHTML = null;
+                    li = document.createElement('li'); 
+                    li.className = 'mui-table-view-cell mui-media';
+                    li.innerHTML = '<a class="mui-navigate-right" id='+ id +' data-audio='+ name +'>'+
+                                        '<img class="mui-media-object mui-pull-left" src="'+ logoA +'">'+
+                                        '<div class="mui-media-body" style="color:#000;line-height:40px;">'+name+
+//                                        '<p class="mui-ellipsis">'+zlid+'</p>'+
+                                        '</div>'+
+                                    '</a>';
+                    fragment.appendChild(li);
+                })
+
+                list1.appendChild(fragment)
+
+                mui(document).imageLazyload({
+                    placeholder: '../img/60x60.gif'
+                });
+            },
+/*            error:function(xhr,type,errorThrown){
+                //异常处理；
+       		mui.toast('加载失败！');
+                console.log(type);
+            }*/
+        });
+				}, 1500);
+			}
+		</script>
+
+</html>

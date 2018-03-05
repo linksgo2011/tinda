@@ -23,7 +23,7 @@
 		</header>
     <div class="mui-content">
         <p style="text-align:center;color:#0000ff;padding-top:8px;height:25px;" id="title"><b>PIN码查询</b></p>
-        <p style="text-align:center;color:#ff0000;height:20px;font-size:12px" id="title">每天可免费查询一次，请谨慎使用。勿用于违法操作！<br /></p>
+        <p style="text-align:center;color:#ff0000;height:20px;font-size:12px" id="title">每天每个品牌只能查询一次 谨慎使用，请勿用于违法操作<br /></p>
         <p style="text-align:center;color:#0000ff;height:20px;font-size:12px" id="title">更多车型可在弹出菜单内上下滑动查看！<br /></p>
 		<form class="mui-input-group" style="padding-right:12px;">
 					<div class="mui-input-row mui-plus-visible">
@@ -38,7 +38,7 @@
 					</div>
 					<div class="mui-input-row mui-plus-visible">
 						<label><span class="mui-icon-extra mui-icon-extra-calendar"></span>车架号</label>
-						<input type="text" name="pacjh" placeholder="">
+						<input type="text" name="pacjh" placeholder="车架号必须大写">
 					</div>
 					<div class="mui-input-row mui-plus-visible">
 						<label><span class="mui-icon-extra mui-icon-extra-calendar"></span>申请码</label>
@@ -148,7 +148,7 @@ function b(){
 	var panianfInput1=document.querySelector('select[name="panianf"]');
 	var pacjhInput1=document.querySelector('input[name="pacjh"]');
 	//获取到用户输入的账号密码
-	var papingpValue1 = papingpInput1.options[papingpInput1.selectedIndex].value;
+	var papingpValue1 = papingpInput1.options[papingpInput1.selectedIndex].value; 
 	var pachexValue1 = pachexInput1.options[pachexInput1.selectedIndex].value;
 	var paxingqhValue1 = paxingqhInput1.value;
 	var panianfValue1 = panianfInput1.value;

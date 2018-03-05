@@ -4,10 +4,10 @@
 		"iPhone",
 		"iPad"
 	],
-	"id": "H512717DC",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"id": "H59F6A680",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "腾达云平台",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.8.1",/*应用版本名称*/
+		"name": "1.0",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "",/*应用描述信息*/
@@ -87,7 +87,7 @@
 	"plus": {
 		"splashscreen": {
 			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
-			"waiting": true,"delay":"6"
+			"waiting": true,"delay":"2000"
 		},
 		"runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
@@ -166,12 +166,12 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "images/and-480X800.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "images/and-720X1280.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": ""
+					 /*高分屏启动图片，分辨率：480x762*/
+					 /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "images/1080X1882.png","hdpi":"images/and-480X800.png","xhdpi":"images/and-720X1280.png"
 				}
 			}
-		}
+		},"ads":{"rp":false,"splash":false,"push":false,"spot":false},"adid":""
 	},
 	"dependencies": {
 		"pages": {
@@ -203,7 +203,8 @@
 					"login.html",
 					"personal.html",
 					"daip.html",
-					"passcx.html"
+					"passcx.html",
+					"gx.html"
 				],
 				"priority": 1
 			},
@@ -242,7 +243,8 @@
 				"refer": [
 					"login.html",
 					"daip.html",
-					"1234.html"
+					"1234.html",
+					"rj.html"
 				],
 				"priority": 1
 			},
@@ -612,6 +614,20 @@
 				"refer": [
 					"personal.html"
 				],
+				"priority": 0
+			},
+			"gx.html": {
+				"resources": [],
+				"refer": [
+					"setting.html"
+				],
+				"priority": 0
+			},
+			"rj.html": {
+				"resources": [
+					"rjA.html"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

@@ -42,14 +42,16 @@
 					</span>
 				</li>
 			</ul>
-			<p style="line-height: 28px;margin-left:10px;margin-top:5px;">详细信息：<span style="color:#FF0000 ;">该信息用于找回密码使用，务必牢记</span></p>
+			<p style="line-height: 28px;margin-left:10px;margin-top:5px;">详细信息：<span style="color:#FF0000 ;">该信息用于找回密码使用，务必牢记！</span></p>
 			<ul class="mui-table-view mui-table-view-chevron">
 				<li id="names" class="mui-table-view-cell">姓名：</li>
 				<li class="mui-table-view-cell" id="tels">电话：</li>
 				<!--li class="mui-table-view-cell" id="qqs">Q  Q：</li--->
-				<li class="mui-table-view-cell" id="adds">地址：</li>
+				<li class="mui-table-view-cell" id="adds">身份证：</li>
 				<li class="mui-table-view-cell" id="weigs">违规：</li>
-			</ul>
+				<p style="line-height: 28px;margin-left:10px;margin-top:5px;"><span style="color:#FF0000 ;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意：重复登录将会被扣除使用期</span></p>
+			<!--<span style="color:#FF0000 ;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp;注意：重复登录将会被扣除使用期</span>-->
+		</ul>
 			<p style="height:5px;"></p>
 		</div>
 		<!----底部---->
@@ -110,7 +112,7 @@
 					danqjf.innerText = '当前积分：' + danqjf1; //帐户
 					names.innerHTML = '姓名：' + item.email;
 					tels.innerHTML = '电话：' + tels1;
-					adds.innerHTML = '提示：' + item.comment;
+					adds.innerHTML = '身份证：' + item.comment;
 					weigs.innerHTML = '违规：' + weigs1 + '次';
 				})
 			}

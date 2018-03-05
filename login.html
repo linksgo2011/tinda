@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title></title>
 		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/main.css" />
 		<link href="css/style.css" rel="stylesheet" />
 <style>
 			.body{background:url(images/login-bj.jpg) no-repeat center top;}
@@ -85,6 +86,7 @@
 			.oauth-area .oauth-btn.disabled {
 				background-color: #ddd;
 			}
+			
 		</style>
 
 	</head>
@@ -115,17 +117,120 @@
 			</form>
 			<div class="mui-content-padded">
 				<button id='login' class="mui-btn mui-btn-block mui-btn-primary">登录</button>
-				<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+				<div class="link-area"><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id="ClickMe">自助开通</a><span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+				<!--<p style="line-height: 28px;margin-left:10px;margin-top:10px;"><span style="color:red ;">&nbsp;&nbsp;&nbsp;客服QQ：1191196601  1191196602</span></p>-->
+				<p></p>
+					<p><font size="4" face="arial" color="red">客服QQ:1191196601  1191196602</font></p>
+					<!--<p><font size="4" face="arial" color="red">客服QQ:1191196601 464644</font></p>-->
+			
 				</div>
 			</div>
 			<div class="mui-content-padded oauth-area">
 
 			</div>
 		</div>
+		
+		<div id="goodcover"></div>
+	
+<div id="code">
+<!--  <div class="close1"><a href="javascript:void(0)" id="closebt"></a></div>-->
+  <!--<div class="goodtxt">
+    <p>开通请用微信扫二维码</p>
+    <p>开通请用微信扫二维码</p>
+  </div>-->
+  <div class="code-img"> <img id="ewmsrc"  src="images/code.jpg"></div>
+</div>
+
+		
 		<script src="js/mui.min.js"></script>
 		<script src="js/mui.enterfocus.js"></script>
 		<script src="js/app.js"></script>
+		
+		<script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+
+		
 		<script>
+			
+			
+			$(function() {
+    //alert($(window).height());
+    $('#ClickMe').click(function() {
+        $('#code').center();
+        $('#goodcover').show();
+        $('#code').fadeIn();
+    });
+    $('#closebt').click(function() {
+        $('#code').hide();
+        $('#goodcover').hide();
+    });
+	$('#goodcover').click(function() {
+        $('#code').hide();
+        $('#goodcover').hide();
+    });
+    /*var val=$(window).height();
+	var codeheight=$("#code").height();
+    var topheight=(val-codeheight)/2;
+	$('#code').css('top',topheight);*/
+    jQuery.fn.center = function(loaded) {
+        var obj = this;
+        body_width = parseInt($(window).width());
+        body_height = parseInt($(window).height());
+        block_width = parseInt(obj.width());
+        block_height = parseInt(obj.height());
+
+        left_position = parseInt((body_width / 2) - (block_width / 2) + $(window).scrollLeft());
+        if (body_width < block_width) {
+            left_position = 0 + $(window).scrollLeft();
+        };
+
+        top_position = parseInt((body_height / 2) - (block_height / 2) + $(window).scrollTop());
+        if (body_height < block_height) {
+            top_position = 0 + $(window).scrollTop();
+        };
+
+        if (!loaded) {
+
+            obj.css({
+                'position': 'absolute'
+            });
+            obj.css({
+                'top': ($(window).height() - $('#code').height()) * 0.5,
+                'left': left_position
+            });
+            $(window).bind('resize', function() {
+                obj.center(!loaded);
+            });
+            $(window).bind('scroll', function() {
+                obj.center(!loaded);
+            });
+
+        } else {
+            obj.stop();
+            obj.css({
+                'position': 'absolute'
+            });
+            obj.animate({
+                'top': top_position
+            }, 200, 'linear');
+        }
+    }
+
+})
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			(function($, doc) {
 				$.init({
 					statusBarBackground: '#f7f7f7'
@@ -181,6 +286,9 @@
 					var autoLoginButton = doc.getElementById("autoLogin");
 					var regButton = doc.getElementById('reg');
 					var forgetButton = doc.getElementById('forgetPassword');
+					
+					var zzk = doc.getElementById('zzkt');
+					
 					loginButton.addEventListener('tap', function(event) {
 						var loginInfo = {
 							account: accountBox.value,
@@ -237,6 +345,29 @@
 							}
 						});
 					}, false);
+					
+					
+										zzk.addEventListener('tap', function(event) {
+						$.openWindow({
+							url: 'cz.html',
+							id: 'cz',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					}, false);
+					
+					
+					
+					
+					
 					
 					window.addEventListener('resize', function() {
 						oauthArea.style.display = document.body.clientHeight > 400 ? 'block' : 'none';

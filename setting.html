@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
 
 
+
 		<style>
 			ul {
 				font-size: 14px;
@@ -59,6 +60,11 @@
 							<li class="mui-table-view-cell">
 								<a onclick="personal()" class="mui-navigate-right">个人中心</a>
 							</li>
+							
+				            <li class="mui-table-view-cell">
+								<a onclick="gx()" class="mui-navigate-right">检测更新</a>
+							</li>
+							
 						</ul>
 						<p style="height:5px;"</p>
 						<ul class="mui-table-view">
@@ -77,28 +83,55 @@
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="gnkfz()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-videocam"></span><p style="height:20px;">视频直播</p></a></div>
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="settingA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
 		</header>
-
+		
+        <script src="js/gx.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 // 扩展API加载完毕后调用onPlusReady回调函数 
 //document.addEventListener( "plusready", onPlusReady, false );
 //var r = null; 
 // 扩展API加载完毕，现在可以正常调用扩展API 
+
+
 function onPlusReady() { 
-	plus.cache.clear( function () {
+//	plus.cache.clear( function () {
 		mui.toast( "清除应用程序缓存成功！" );
 	});
 }
 	</script>
-	
+	<script src="js/gx.js"></script>
 	<script src="js/mui.min.js"></script>
 	<script src="js/app.js"></script>
 	</body>
 	<script>
+		
+		
+		 mui.checkUpdate(function(key) {
+            if (key)
+                     console.log("有新版本更新");
+          else console.log("无新版本可更新")
+             });
+            }
+            if (window.plus) {
+                plusReady();
+            } else {
+                document.addEventListener('plusready', plusReady, false);
+            }
+
+            function checkUpdate() {
+                mui.downWgt(true);
+            }
+		
+		
+		
+		
+		
+		
        function gnkfz(){
        		mui.toast('开发中，谢谢关注！');
 		return;
 		}
     </script>
+    
 <script>
     function homeA(){
 	    mui.openWindow({
@@ -148,6 +181,13 @@ function onPlusReady() {
         id:'personal',
         });
     }
+    
+        function gx(){
+	    mui.openWindow({
+        url:'gx.html',
+        id:'gx',
+        });
+    }
 </script>
 	<script>
 		mui.init();
@@ -168,9 +208,9 @@ function onPlusReady() {
 				return;
 			}
 			var btnArray = [{
-				title: "注销当前账号"
+				title: "确定退出"
 			}, {
-				title: "直接关闭应用"
+//				title: "直接关闭应用"
 			}];
 			plus.nativeUI.actionSheet({
 				cancel: "取消",

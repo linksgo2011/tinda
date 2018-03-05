@@ -63,7 +63,7 @@
 					<input id='phone' type="text" class="mui-input-clear mui-input" placeholder="务必填写真实电话">
 				</div>
 				<div class="mui-input-row">
-					<label>提示</label>
+					<label>身份证</label>
 					<input id='comment' type="text" class="mui-input-clear mui-input" placeholder="用于找回密码使用！">
 				</div>
 			</form>
@@ -102,14 +102,14 @@
 				var email = document.querySelector('input[id="email"]').value; //姓名
 				var area = document.querySelector('input[id="area"]').value; //QQ
 				var phone = document.querySelector('input[id="phone"]').value; //电话
-				var comment = document.querySelector('input[id="comment"]').value; //提示
+				var comment = document.querySelector('input[id="comment"]').value; //身份证
 				
 				if(!phone) {
 					mui.toast('电话不能为空！');
 					return;
 				}
 				if(!comment) {
-					mui.toast('请输入提示！');
+					mui.toast('请输入身份证！');
 					return;
 				}
 

@@ -79,7 +79,7 @@
 					<input id='phome' type="text" class="mui-input-clear mui-input" placeholder="务必填写真实电话">
 				</div>
 				<div class="mui-input-row">
-					<label>提示</label>
+					<label>身份证</label>
 					<input id='comment' type="text" class="mui-input-clear mui-input" placeholder="用于找回密码使用！">
 				</div>
 			</form>
@@ -112,13 +112,18 @@
 				if(regpass1 != regpass2) {
 					mui.toast('两处密码不一致！');
 					return;
+					
+				}
+					if(!regemail) {
+					mui.toast('请输入姓名');
+					return;
 				}
 				if(!regphome) {
 					mui.toast('电话不能为空！');
 					return;
 				}
 				if(!regcomment) {
-					mui.toast('请输入提示！');
+					mui.toast('请输入身份证！');
 					return;
 				}
 
@@ -135,7 +140,7 @@
 							mui.toast('用户名已占用，请重新输入！');
 							return;
 						} else if(data == '2') {
-							mui.toast('该提示问题已经存在，请更换！');
+							mui.toast('该身份证问题已经存在，请更换！');
 							return;
 						} else if(data == '3') {
 							var info = document.getElementById("info");

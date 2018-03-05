@@ -5,6 +5,7 @@
 	 * 项目的基本配置 
 	 */
 	owner.config = {
+//		baseUrl:"http://www.1008691.club/"
 		baseUrl:"http://admin.tengdakey.com/"
 //		baseUrl:"http://localhost/tinda/"
 	}
@@ -12,6 +13,15 @@
 	 * 用户登录
 	 **/
 	owner.login = function(loginInfo, callback) {
+		
+		if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+        mui.toast("网络异常，请检查网络设置！");
+ 
+       } else {
+		
+		
+		
+		
 		callback = callback || $.noop;
 		loginInfo = loginInfo || {};
 		loginInfo.account = loginInfo.account || '';
@@ -48,10 +58,14 @@
 		 }
 	   if(data=='3'){
 		 return callback('用户名或密码错误');
+		 }
+	   	   if(data=='0'){
+		 return callback('帐号不存在！');
 		 }},
 		 'text'
 		 );
 		/////
+		}
 	};
 
 	owner.createState = function(name,usertoke, callback) {
