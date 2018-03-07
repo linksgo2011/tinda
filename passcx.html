@@ -82,7 +82,9 @@ getSetting();
 
 var tipElement = document.getElementById("tip");
 
-var maxtime = 10*60-1 //一个小时，按秒计算，自己调整!
+//var maxtime = 10*60-1 //一个小时，按秒计算，自己调整!
+var maxtime = 59*60-1 //一个小时，按秒计算，自己调整!
+//<p style="text-align:center;color:#0000ff;height:20px;font-size:12px" id="title">更多车型可在弹出菜单内上下滑动查看！<br /></p>
 function CountDown(){ 
 if(maxtime==0){ 
 //PINpass.innerHTML = '<p style="text-align:center;">尚未查询到结果，请稍后再试！</p>';
@@ -91,7 +93,7 @@ clearInterval(timer);
 }else{ 
 minutes = Math.floor(maxtime/60); 
 seconds = Math.floor(maxtime%60); 
-msg = "查询中："+minutes+"分"+seconds+"秒"; 
+msg = "查询中（需等待10-60分钟）："+minutes+"分"+seconds+"秒"; 
 document.all["PINpass"].innerHTML=msg; 
 --maxtime; 
 		 return;
