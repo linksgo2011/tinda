@@ -70,7 +70,7 @@
 		<div style="height:60px"></div>
 		<header class="mui-bar mui-bar-nav1" style="padding-right: 15px;height:60px">
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="homeA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-home"></span><p style="height:20px;">首页</p></a></div>
-			<div style="width:60%;float:left;text-align:center;font-size:2px"><button type="button"  onclick="b()" class="mui-btn" style="height:45px;font-size:16px">提交查询</button></div>
+			<div style="width:60%;float:left;text-align:center;font-size:2px"><button type="button" id="searchButton" onclick="b()" class="mui-btn" style="height:45px;font-size:16px">提交查询</button></div>
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="settingA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
 		</header>
 		<script src="js/mui.min.js"></script>
@@ -95,6 +95,7 @@ minutes = Math.floor(maxtime/60);
 seconds = Math.floor(maxtime%60); 
 msg = "查询中（需等待10-60分钟）："+minutes+"分"+seconds+"秒"; 
 document.all["PINpass"].innerHTML=msg; 
+
 --maxtime; 
 		 return;
 }
@@ -141,6 +142,7 @@ function myFun1(){
         });
 ///////////////
 }
+
 function b(){
 	//获取到账号和密码的文本框对象
 	var maxtime = null;
@@ -162,20 +164,22 @@ function b(){
 		mui.toast('请认真填写');
 		return;
 	}
-	if(pacjhValue1.length!=17){
+	
+	if(!/[0-9a-zA-Z]{17}/.test(pacjhValue1)){
 		mui.toast('车架码格式有误!<br />由大写字母(O,I外)和数字组成的17位编码。');
 		return;
 	}
     tipElement.innerHTML = '<p style="text-align:center;"><span class="mui-spinner"></span>查询中...</p>';
-
+	document.getElementById("searchButton").disabled = true;
+ 	
  	//远程提交
  		mui.post(app.config.baseUrl + 'passcx1.php',{ papingp:papingpValue1,paxingqh:paxingqhValue1,panianf:panianfValue1,pacjh:pacjhValue1,username:userValue,pachex:pachexValue1},//请求，地址是服务器本机的ip地址//要传送的数据
 	    function(data){ //服务器返回数据回来时应该做什么的函数
 	   if(data=='1'){
-timer = setInterval("CountDown()",1000); 
-///////////////////////////////
-setTimeout("c()",10000);//10秒后再次执行
-///////////////////////////////
+		timer = setInterval("CountDown()",1000); 
+		///////////////////////////////
+		setTimeout("c()",10000);//10秒后再次执行
+		return;
        }else if(data=='3'){
                 tipElement.innerHTML = '<p style="text-align:center;">请检查车架号是否正确!</p>';
        }else if(data=='2'){
@@ -191,8 +195,8 @@ setTimeout("c()",10000);//10秒后再次执行
                 maxtime = 0; 
                 PINpass.innerHTML = "&nbsp;&nbsp;PIN："+data;
 		 		tipElement.innerHTML = '<p style="text-align:center;">查询完成</p>';
-		 		return;
 		 }
+       document.getElementById("searchButton").disabled = false;
 	   });
 }
 function c(){
@@ -215,12 +219,15 @@ function c(){
 		mui.toast('请认真填写');
 		return;
 	}
+	if(!/[0-9a-zA-Z]{17}/.test(pacjhValue1)){
+		return;
+	}
  	//远程提交
  		mui.post(app.config.baseUrl + 'passcx1.php',{ papingp:papingpValue1,paxingqh:paxingqhValue1,panianf:panianfValue1,pacjh:pacjhValue1,username:userValue,pachex:pachexValue1},//请求，地址是服务器本机的ip地址//要传送的数据
 	    function(data){ //服务器返回数据回来时应该做什么的函数
 	   if(data=='1'){
-setTimeout("c()",1000);//10秒后再次执行
-///////////////////////////////
+			setTimeout("c()",1000);//10秒后再次执行
+			return;
        }else if(data=='3'){
                 tipElement.innerHTML = '<p style="text-align:center;">请检查车架号是否正确!</p>';
        }else if(data=='2'){
@@ -236,8 +243,8 @@ setTimeout("c()",1000);//10秒后再次执行
                 maxtime = 0; 
                 PINpass.innerHTML = "&nbsp;&nbsp;PIN："+data;
                 tipElement.innerHTML = '<p style="text-align:center;">查询完成</p>';
-		 return;
 		 }
+       document.getElementById("searchButton").disabled = false;
 	   });
 }
 //下拉列表值
