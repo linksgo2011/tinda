@@ -21,12 +21,16 @@
 	<body>
 		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff;"></a>
-			<h1 class="mui-title">直播</h1>
+			<h1 class="mui-title">直播列表</h1>
 			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
 		</header>
-        <div class="mui-content">
-      	<div id="id_video_container_10905947996255835126" style="width:100%;height:1px;"></div>
-        </div>
+		
+		<div class="mui-content" id="container">
+			
+	        
+		</div>
+
+        
 <!----底部---->
 		<div style="height:60px"></div>
 		<header class="mui-bar mui-bar-nav1" style="padding-right: 15px;height:60px">
@@ -36,28 +40,58 @@
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="gnkfz()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-videocam"></span><p style="height:20px;">视频直播</p></a></div>
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="settingA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
 		</header>
+		
 	</body>
+		
 	<script src="js/mui.min.js"></script>
 	<script src="js/zepto.min.js"></script>
 	<script src="js/app.js"></script>
 	
-	
 	<script>
+		(function($, doc) {
+			$.init();
+			
+			var itemTemplate = [
+			'<div onclick="redirectToLiveDetail(\'{channel_id}\',\'{app_id}\')" class="mui-content">',
+			'				<div class="mui-card">',
+			'					<div class="mui-card-header mui-card-media">',
+			'						<img src="images/fl_1.jpg"  width="100%"/>',
+			'						<div class="mui-media-body">',
+			'							{title}',
+			'							<p>创建时间 {created}</p>',
+			'						</div>',
+			'					</div>',
+			'				</div>',
+			'	        </div>'
+			].join("");
+			
+			
+			var $container = Zepto("#container");
+			$.getJSON(app.config.baseUrl + 'live/list.php',{},function(data){
+				data.forEach(function(one){
+					var result = itemTemplate.replace("{title}",one.title);
+					result = result.replace("{channel_id}",one.channel_id);
+					result = result.replace("{app_id}",one.app_id);
+					result = result.replace("{created}", (new Date(one.created*1000)).toLocaleString());
+					
+					console.log(result);
+					$container.append(result);
+				});
+			})
+			
+		}(mui, document));
 		
-		mui.init();
-	
+		function redirectToLiveDetail(channel_id,app_id){
+		
+		    mui.openWindow({
+		        url:'live.html',
+		        id:'live',
+		        extras:{
+		        		channel_id:channel_id,
+		        		app_id:app_id
+		        }
+	        });
+		}
 		
 	</script>
-		<script src="http://imgcache.qq.com/open/qcloud/video/live/h5/live_connect.js" charset="utf-8"></script>
- <script type="text/javascript">
-            (function(){
-            	   var liveWebView = plus.webview.getWebviewById('live')
-               var option ={"channel_id":liveWebView.channel_id,"app_id":liveWebView.app_id,"width":"1024","height":"768"};
-               new qcVideo.Player(
-                       /*代码中的id_video_container将会作为播放器放置的容器使用,可自行替换*/
-                       "id_video_container_10905947996255835126",
-                       option
-                   );
-             })()
- </script>          
 </html>
