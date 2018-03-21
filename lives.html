@@ -15,6 +15,9 @@
 			.mui-btn {
 				padding: 10px;
 			}
+			.live-item p{
+				padding-left: 10px;
+			}
 		</style>
 	</head>
 
@@ -37,7 +40,7 @@
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="homeA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-home"></span><p style="height:20px;">首页</p></a></div>
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px"><a onclick="zlcxA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-search"></span><p style="height:20px;">资料查询</p></a></div>
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="passcxA()" style="color:#FFFFFF;"><span style="height:20px;padding-top:11px;"  class="mui-icon-extra mui-icon-extra-cart"></span><p style="height:20px;">PIN码查询</p></a></div>
-			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="gnkfz()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-videocam"></span><p style="height:20px;">视频直播</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-videocam"></span><p style="height:20px;">视频直播</p></a></div>
 			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="settingA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
 		</header>
 		
@@ -53,11 +56,12 @@
 			
 			var itemTemplate = [
 			'<div onclick="redirectToLiveDetail(\'{channel_id}\',\'{app_id}\')" class="mui-content">',
-			'				<div class="mui-card">',
+			'				<div class="mui-card live-item">',
 			'					<div class="mui-card-header mui-card-media">',
-			'						<img src="images/fl_1.jpg"  width="100%"/>',
+			'						<img src="{img}"  width="100%"/>',
 			'						<div class="mui-media-body">',
-			'							{title}',
+			'							<p>{title}</p>',
+			'							<p>状态：{status}</p>',
 			'							<p>创建时间 {created}</p>',
 			'						</div>',
 			'					</div>',
@@ -67,31 +71,21 @@
 			
 			
 			var $container = Zepto("#container");
+			var statusMap = {0:"直播结束",1:"正在直播",2:"异常",3:"直播关闭",4:"配置不完整"}
 			$.getJSON(app.config.baseUrl + 'live/list.php',{},function(data){
 				data.forEach(function(one){
 					var result = itemTemplate.replace("{title}",one.title);
+					var img = one.img?one.img:"images/fl_1.jpg";
 					result = result.replace("{channel_id}",one.channel_id);
 					result = result.replace("{app_id}",one.app_id);
-					result = result.replace("{created}", (new Date(one.created*1000)).toLocaleString());
+					result = result.replace("{img}",img);
+					result = result.replace("{status}",statusMap[one.status]);
+					result = result.replace("{created}", (new Date(one.created*1000)).Format("yyyy-MM-dd hh:mm:ss"));
 					
-					console.log(result);
 					$container.append(result);
 				});
 			})
 			
-		}(mui, document));
-		
-		function redirectToLiveDetail(channel_id,app_id){
-		
-		    mui.openWindow({
-		        url:'live.html',
-		        id:'live',
-		        extras:{
-		        		channel_id:channel_id,
-		        		app_id:app_id
-		        }
-	        });
-		}
-		
+		}(mui, document));		
 	</script>
 </html>

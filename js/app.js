@@ -7,7 +7,7 @@
 	owner.config = {
 //		baseUrl:"http://www.1008691.club/"
 		baseUrl:"http://admin.tengdakey.com/"
-//		baseUrl:"http://localhost/tinda/"
+//		baseUrl:"http://localhost/tinda_admin/"
 	}
 	/**
 	 * 用户登录
@@ -185,4 +185,85 @@
 			}
 		}
 	}
+	
+	
 }(mui, window.app = {}));
+
+/**
+ * 日期格式化 
+ */
+Date.prototype.Format = function (fmt) { //author: meizz 
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+// 公共跳转部分
+
+function redirectToLiveDetail(channel_id,app_id){
+	mui.openWindow({
+	        url:'live.html',
+	    id:'live',
+	    extras:{
+	    		channel_id:channel_id,
+	    		app_id:app_id
+	    }
+	});
+}
+	
+function homeA(){
+    mui.openWindow({
+    url:'main.html',
+    id:'main',
+    });
+}
+
+function rj(){
+    mui.openWindow({
+    url:'rj.html',
+    id:'rj',
+    });
+}
+
+
+function zlcxA(){
+    mui.openWindow({
+    url:'zlcx.html',
+    id:'zlcx',
+    });
+}
+function passcxA(){
+    mui.openWindow({
+    url:'passcx.html',
+    id:'passcx',
+    });
+}
+function settingA(){
+    mui.openWindow({
+    url:'setting.html',
+    id:'setting',
+    });
+}
+function aboutd(){
+    mui.openWindow({
+    url:'daip.html?id=about',
+    id:'about',
+    });
+}
+
+function redirectToLives(){
+		    mui.openWindow({
+    url:'lives.html',
+    id:'lives',
+    });
+}
