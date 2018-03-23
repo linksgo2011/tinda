@@ -15,6 +15,41 @@
 			.mui-btn {
 				padding: 10px;
 			}
+			#messages-box{
+	            height:150px;
+	            overflow:scroll;
+	            font-size: 0.6em;
+	        }
+	        #messages-box{
+				
+	        }
+	        
+	        #messages-box dd{
+	        		margin:0px;
+	            padding:5px;
+	            margin-left:5px;
+	        }
+	        #messages-box .receive{
+				
+	        }
+	        #messages-box .to{
+				color:#FF0000;	            
+	        }
+	        #chat-form{
+	        		width:100%;
+	        		position: fixed;
+	        		bottom: 48px;
+	        		padding-right: 59px;
+	        }
+	        #send-button{
+	        		width:60px;
+	        		position:absolute;
+	        		height:40px;
+	        		border-top-left-radius: 0px;
+	        		border-bottom-left-radius:0px;
+	        		top:0px;
+	        		right:0px;
+	        }
 		</style>
 	</head>
 
@@ -25,7 +60,16 @@
 			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
 		</header>
         <div class="mui-content">
-      	<div id="id_video_container_10905947996255835126" style="width:100%;height:1px;"></div>
+      		<div id="id_video_container_10905947996255835126" style="width:100%;height:1px;"></div>
+      		<div id="chat-room">
+      			<div id="messages-box">
+      				
+      			</div>
+      			<div id="chat-form">
+				    <input type="text" id="message-input">
+				    <button id="send-button">发送</button>
+      			</div>
+      		</div>
         </div>
 <!----底部---->
 		<div style="height:60px"></div>
@@ -49,16 +93,84 @@
 		
 	</script>
 		<script src="http://imgcache.qq.com/open/qcloud/video/live/h5/live_connect.js" charset="utf-8"></script>
- <script type="text/javascript">
-            (function(){
-            	   var liveWebView = plus.webview.getWebviewById('live')
-               var option ={"channel_id":liveWebView.channel_id,"app_id":liveWebView.app_id,"width":"1024","height":"768"};
-               new qcVideo.Player(
-                       /*代码中的id_video_container将会作为播放器放置的容器使用,可自行替换*/
-                       "id_video_container_10905947996255835126",
-                       option
-                   );
-             })()
+		 <script type="text/javascript">
+		            (function(){
+		            	   var liveWebView = plus.webview.getWebviewById('live')
+		               var option ={"channel_id":liveWebView.channel_id,"app_id":liveWebView.app_id,"width":"1024","height":"768"};
+		               new qcVideo.Player(
+		                       /*代码中的id_video_container将会作为播放器放置的容器使用,可自行替换*/
+		                       "id_video_container_10905947996255835126",
+		                       option
+		                   );
+		             })()
+		           $(function () {
+
+		// chat box
+        var timeFlag = 0;
+        function longPolling() {
+
+            $.ajax({
+                url: "http://localhost/tinda_admin/chat.php",
+                data:{
+                    username:"testuser",
+                    time:timeFlag,
+                    channelID:"10905947996256161278"
+                },
+                dataType: "text",
+                timeout: 10000,
+                error: function (XMLHttpRequest, textStatus) {
+                    setTimeout(longPolling,1000);
+                },
+                success: function (data, textStatus) {
+                    data = JSON.parse(data);
+                    var lastItem = data[data.length-1];
+                    if(lastItem){
+                        timeFlag = lastItem.created;
+                    }
+
+                    data.forEach(function(item){
+                        $("#messages-box").append("<dd class='receive'>"+item.username + ": "+item.content+"</dd>")
+                    	
+                    })
+                    scrollEnd();
+                    setTimeout(longPolling,1000);
+                }
+            });
+
+        }
+        
+        function scrollEnd(){
+        		$('#messages-box').scrollTop( $('#messages-box')[0].scrollHeight );
+        }
+
+        // start polling
+        longPolling();
+
+        $("#send-button").click(function () {
+            var content = $("#message-input").val();
+            if(!content.trim()){
+            		return ;
+            }
+            $("#messages-box").append("<dd class='to'>我:"+content+"</dd>")
+            $("#message-input").val("");     
+            scrollEnd();
+            $.post(
+                "http://localhost/tinda_admin/chat.php",
+                {
+                    username:"testuser",
+                    content:content,
+                    channelID:"10905947996256161278"
+                },
+                function(data){
+                		if(data != 0){
+                			alert("发送失败!");
+                		}
+                }
+            )
+        });
+    });  
+   
+             
              
              
  </script>          
