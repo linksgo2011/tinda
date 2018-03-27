@@ -50,6 +50,9 @@
 	        		top:0px;
 	        		right:0px;
 	        }
+	        .apply-live-button{
+	        		float:right;
+	        }
 		</style>
 	</head>
 
@@ -60,6 +63,12 @@
 			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
 		</header>
         <div class="mui-content">
+        		<div class="top-bar">
+        			房间：<span id="host"></span>
+        			<span class="links">
+        				<a class="apply-live-button" onclick="toApplyLive()">我要直播</a>
+        			</span>
+        		</div>
       		<div id="id_video_container_10905947996255835126" style="width:100%;height:1px;"></div>
       		<div id="chat-room">
       			<div id="messages-box">
@@ -95,7 +104,9 @@
 		<script src="http://imgcache.qq.com/open/qcloud/video/live/h5/live_connect.js" charset="utf-8"></script>
 		 <script type="text/javascript">
 		            (function(){
-		            	   var liveWebView = plus.webview.getWebviewById('live')
+		            	   var liveWebView = plus.webview.getWebviewById('live');
+		            	   var title = liveWebView.title;
+		            	   $("#host").text(title);
 		               var option ={"channel_id":liveWebView.channel_id,"app_id":liveWebView.app_id,"width":"1024","height":"768"};
 		               new qcVideo.Player(
 		                       /*代码中的id_video_container将会作为播放器放置的容器使用,可自行替换*/
@@ -171,7 +182,11 @@
     });  
    
              
-             
-             
+	 function toApplyLive(){
+		mui.openWindow({
+		    url:'applyLive.html',
+		    id:'applyLive'
+		});
+	 }
  </script>          
 </html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+		<style>
+			#popover{
+				width:100%;
+				height: 100%;
+				top:40px;
+				border-radius:0px;
+				text-align:center;
+			}
+			#popover .content{
+				min-height: 100px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff;"></a>
+			<h1 class="mui-title">申请开通直播</h1>
+			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
+		</header>
+        <div class="mui-content">
+        		<div class="apply-form">
+				<form class="mui-input-group" id="apply-form">
+				    <div class="mui-input-row">
+				        <label>直播标题</label>
+				    		<input type="text" name="title" class="mui-input-clear" placeholder="请输入标题" required="required">
+				    </div>
+				    <div class="mui-input-row">
+				        <label>开播时间</label>
+				        <input type="date" name="time" class="mui-input-password" placeholder="开播时间" required="required">
+				    </div>
+				    
+				    	<div class="mui-input-row">
+				        <label>观众收费</label>
+				        <input type="hidden" name="if_need_point" placeholder="">
+
+						<div class="mui-switch" id="if-need-point">
+						  <div class="mui-switch-handle"></div>
+						</div>
+				    </div>
+				    <div class="mui-input-row" id="point-input-container">
+				        <label>每人积分</label>
+				        <input type="number" name="point" class="mui-input-password" placeholder="">
+				    </div>
+				    
+				    	<div class="mui-input-row">
+				        <span style="color:#FF0000">注意:</span>
+						本次开播需要缴纳100积分，按时开播后积分退回，如按时开播则不退回。
+				    </div>
+				    
+				    <div class="mui-button-row">
+				        <button type="submit" class="mui-btn mui-btn-primary" id="submit-button">申请直播</button>
+				    </div>
+				</form>
+        		</div>
+        </div>
+<!----底部---->
+		<div style="height:60px"></div>
+		<header class="mui-bar mui-bar-nav1" style="padding-right: 15px;height:60px">
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="homeA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-home"></span><p style="height:20px;">首页</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px"><a onclick="zlcxA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-search"></span><p style="height:20px;">资料查询</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="passcxA()" style="color:#FFFFFF;"><span style="height:20px;padding-top:11px;"  class="mui-icon-extra mui-icon-extra-cart"></span><p style="height:20px;">PIN码查询</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-videocam"></span><p style="height:20px;">视频直播</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="settingA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
+		</header>
+
+	<div id="popover" class="mui-popover">
+	 <h2>免责申明</h2>
+	 <div class="content">
+	 	免责正文
+	 </div>
+	  <button type="button" class="mui-btn mui-btn-primary" id="button-agree">同意</button>
+	  <button type="button" class="mui-btn" id="button-cancel">取消</button>
+	</div>
+
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/zepto.min.js"></script>
+	<script src="js/app.js"></script>
+	
+	
+	<script>
+		
+		mui.init();
+	   	$(function () {	   		
+	   		$("#submit-button").click(function(event){
+	   			event.preventDefault();
+	   			var formData = getFormData();
+	   			if(!formData['title']){
+	   				plus.nativeUI.toast("标题不能为空！");
+	   				return;
+	   			}
+	   			if(!formData['time']){
+	   				plus.nativeUI.toast("时间不能为空！");
+	   				return;
+	   			}
+				if($("input[name='if-need-point']").val() && $("input[name='point']").val() == ""){
+					plus.nativeUI.toast("当开启观众收费时，积分不能为空！");
+					return;
+				}
+				
+	   			mui('#popover').popover("show");
+	   			return false;
+	   		})
+	   		
+	   		$("#button-cancel").click(function(){
+	   			mui('#popover').popover("hide");
+	   		});
+	   		
+	   		$("#button-agree").click(function(){
+				mui('#popover').popover("hide");
+				var formData = getFormData();
+				var userszl = JSON.parse(localStorage.getItem("userzl"));
+				var userValue=userszl.name;
+				formData['username'] = userValue;
+				
+				var url = app.config.baseUrl + "live/applyLive.php";
+		        mui.ajax(url,{ 
+		            data: formData,
+		            dataType:'json',
+		            type:'post',
+		            success:function(data){
+		            		console.log(JSON.stringify(data));
+		            		
+						if(data.status){
+							plus.nativeUI.toast("申请成功！");
+							return;
+						}else{
+							var message = data.message?data.message:"服务器错误!";
+							plus.nativeUI.toast(message);
+							return;
+						}
+		            }
+		        });
+	   		});
+	   		
+			document.getElementById("if-need-point").addEventListener("toggle",function(event){
+			  if(event.detail.isActive){
+			    $("#point-input-container").show();
+			    $("input[name='if-need-point']").val("1");
+			  }else{
+			    $("#point-input-container").hide();
+			    $("input[name='if-need-point']").val("");
+			  }
+			})
+   		}).trigger("toggle");
+   		
+   		function getFormData(){
+			var formData = {};
+			var originFormData = $('#apply-form').serializeArray();
+			$.each(originFormData, function() {
+			  formData[this.name] = this.value;
+			});
+			return formData;
+   		}
+	</script>         
+</html>

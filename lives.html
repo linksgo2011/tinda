@@ -74,7 +74,7 @@
 		
 		function loadLives(keyworkd){
 			var itemTemplate = [
-			'<div onclick="redirectToLiveDetail(\'{channel_id}\',\'{app_id}\')" class="mui-content">',
+			'<div onclick="redirectToLiveDetail(\'{channel_id}\',\'{app_id}\',\'{title}\')" class="mui-content">',
 			'				<div class="mui-card live-item">',
 			'					<div class="mui-card-header mui-card-media">',
 			'						<img src="{img}"  width="100%"/>',
@@ -98,6 +98,7 @@
 					var img = one.img?one.img:"images/fl_1.jpg";
 					result = result.replace("{channel_id}",one.channel_id);
 					result = result.replace("{app_id}",one.app_id);
+					result = result.replace("{title}",one.title);
 					result = result.replace("{img}",img);
 					result = result.replace("{status}",statusMap[one.status]);
 					result = result.replace("{created}", (new Date(one.created*1000)).Format("yyyy-MM-dd hh:mm:ss"));
@@ -106,5 +107,20 @@
 				});
 			})
 		}
+		
+// 公共跳转部分
+
+function redirectToLiveDetail(channel_id,app_id,title){
+	mui.openWindow({
+	        url:'live.html',
+	    id:'live',
+	    extras:{
+	    		channel_id:channel_id,
+	    		app_id:app_id,
+	    		title:title
+	    }
+	});
+}
+
 	</script>
 </html>
