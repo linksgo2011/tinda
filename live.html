@@ -114,8 +114,33 @@
 		                       option
 		                   );
 		             })()
-		           $(function () {
-
+	$(function () {
+			var url = app.config.baseUrl + "live/buyWithPoint.php";
+			var userszl = JSON.parse(localStorage.getItem("userzl"));
+			var userValue=userszl.name;
+			var liveWebView = plus.webview.getWebviewById('live');
+	        mui.ajax(url,{ 
+	            data: {
+	            		username:userValue,
+	            		live_id:liveWebView.live_id
+	            },
+	            dataType:'json',
+	            type:'post',
+	            success:function(data){
+	            		console.log(JSON.stringify(data));
+	            		
+					if(data.status){
+						return;
+					}else{
+						var message = data.message?data.message:"服务器错误!";
+						plus.nativeUI.toast(message);
+						mui.back();
+						return;
+					}
+	            }
+	        });
+			
+			
 		// chat box
         var timeFlag = 0;
         function longPolling() {
