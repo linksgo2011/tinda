@@ -208,19 +208,6 @@ Date.prototype.Format = function (fmt) { //author: meizz
     return fmt;
 }
 
-// 公共跳转部分
-
-function redirectToLiveDetail(channel_id,app_id){
-	mui.openWindow({
-	        url:'live.html',
-	    id:'live',
-	    extras:{
-	    		channel_id:channel_id,
-	    		app_id:app_id
-	    }
-	});
-}
-	
 function homeA(){
     mui.openWindow({
     url:'main.html',

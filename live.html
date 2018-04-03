@@ -134,7 +134,7 @@
 					}else{
 						var message = data.message?data.message:"服务器错误!";
 						plus.nativeUI.toast(message);
-						mui.back();
+						setTimeout("mui.back()",500);
 						return;
 					}
 	            }

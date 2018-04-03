@@ -51,7 +51,11 @@
 				        <label>每人积分</label>
 				        <input type="number" name="point" class="mui-input-password" placeholder="">
 				    </div>
-				    
+				    <div class="mui-input-row" id="point-input-container">
+				        <label>封面</label>
+				        <input type="file" onchange="upload()" accept="image/jpeg,image/png,image/gif" />
+				        <input type="hidden" name="img" class="mui-input-password" placeholder="">
+				    </div>
 				    	<div class="mui-input-row">
 				        <span style="color:#FF0000">注意:</span>
 						本次开播需要缴纳100积分，按时开播后积分退回，如按时开播则不退回。
@@ -162,5 +166,45 @@
 			});
 			return formData;
    		}
+   		
+	function upload() {
+        //get the input and the file
+        var input = document.querySelector('input[type=file]'),
+            file = input.files[0];
+
+        //if the file isn't a image nothing happens.
+        //you are free to implement a fallback
+        if (!file) return;
+        var xhr = new XMLHttpRequest();
+        // 上传中
+//      xhr.upload.addEventListener("progress", function(e) {
+//          console.log(e);
+//      }, false);
+
+         xhr.onreadystatechange = function(e) {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                   var response = JSON.parse(xhr.response);
+                   if(response.error == 0){
+                       mui.toast("上传成功！");
+                       var url = response.url;
+                       $("input[name='img']").val(url);
+                   }else{
+                       mui.toast(response.message);
+                   }
+                } else {
+					 mui.toast("上传失败！");
+                }
+            }
+        };
+        
+        var fd = new FormData();
+        fd.append("imgFile", file);
+
+        // 开始上传
+        xhr.open("POST", app.config.baseUrl + "/kindeditor/php/upload_json.php", true);
+        xhr.setRequestHeader("X_FILENAME", encodeURIComponent(file.name));
+        xhr.send(fd);
+    }
 	</script>         
 </html>
