@@ -93,6 +93,8 @@
 			$container.html("");
 			var statusMap = {0:"直播结束",1:"正在直播",2:"异常",3:"直播关闭",4:"配置不完整"}
 			$.getJSON(app.config.baseUrl + 'live/list.php',{keyword:keyworkd},function(data){
+				console.log(data);
+				
 				data.forEach(function(one){
 					var result = itemTemplate.replace("{title}",one.title);
 					var img = one.img?one.img:"images/fl_1.jpg";

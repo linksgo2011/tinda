@@ -93,125 +93,122 @@
 	<script src="js/mui.min.js"></script>
 	<script src="js/zepto.min.js"></script>
 	<script src="js/app.js"></script>
-	
-	
-	<script>
-		
-		mui.init();
-	
-		
-	</script>
+
 		<script src="http://imgcache.qq.com/open/qcloud/video/live/h5/live_connect.js" charset="utf-8"></script>
 		 <script type="text/javascript">
-		            (function(){
-		            	   var liveWebView = plus.webview.getWebviewById('live');
-		            	   var title = liveWebView.title;
-		            	   $("#host").text(title);
-		               var option ={"channel_id":liveWebView.channel_id,"app_id":liveWebView.app_id,"width":"1024","height":"768"};
-		               new qcVideo.Player(
-		                       /*代码中的id_video_container将会作为播放器放置的容器使用,可自行替换*/
-		                       "id_video_container_10905947996255835126",
-		                       option
-		                   );
-		             })()
-	$(function () {
-			var url = app.config.baseUrl + "live/buyWithPoint.php";
-			var userszl = JSON.parse(localStorage.getItem("userzl"));
-			var userValue=userszl.name;
-			var liveWebView = plus.webview.getWebviewById('live');
-	        mui.ajax(url,{ 
-	            data: {
-	            		username:userValue,
-	            		live_id:liveWebView.live_id
-	            },
-	            dataType:'json',
-	            type:'post',
-	            success:function(data){
-	            		console.log(JSON.stringify(data));
-	            		
-					if(data.status){
-						return;
-					}else{
-						var message = data.message?data.message:"服务器错误!";
-						plus.nativeUI.toast(message);
-						setTimeout("mui.back()",500);
-						return;
-					}
-	            }
-	        });
-			
-			
-		// chat box
-        var timeFlag = 0;
-        function longPolling() {
+		 	 mui.init();
+		 	 
+	 	 mui.plusReady(function(){
+	 	 
+            (function(){
+            	   var liveWebView = plus.webview.getWebviewById('live');
+            	   var title = liveWebView.title;
+            	   $("#host").text(title);
+               var option ={"channel_id":liveWebView.channel_id,"app_id":liveWebView.app_id,"width":"1024","height":"768"};
+               new qcVideo.Player(
+                       /*代码中的id_video_container将会作为播放器放置的容器使用,可自行替换*/
+                       "id_video_container_10905947996255835126",
+                       option
+                   );
+             })()
+			$(function () {
+					var url = app.config.baseUrl + "live/buyWithPoint.php";
+					var userszl = JSON.parse(localStorage.getItem("userzl"));
+					var userValue=userszl.name;
+					var liveWebView = plus.webview.getWebviewById('live');
+			        mui.ajax(url,{ 
+			            data: {
+			            		username:userValue,
+			            		live_id:liveWebView.live_id
+			            },
+			            dataType:'json',
+			            type:'post',
+			            success:function(data){
+			            		console.log(JSON.stringify(data));
+			            		
+							if(data.status){
+								return;
+							}else{
+								var message = data.message?data.message:"服务器错误!";
+								plus.nativeUI.toast(message);
+								setTimeout("mui.back()",500);
+								return;
+							}
+			            }
+			        });
+					
+					
+				// chat box
+		        var timeFlag = 0;
+		        function longPolling() {
+		
+		            $.ajax({
+		                url: app.config.baseUrl + "tinda_admin/chat.php",
+		                data:{
+		                    username:"testuser",
+		                    time:timeFlag,
+		                    channelID:"10905947996256161278"
+		                },
+		                dataType: "text",
+		                timeout: 10000,
+		                error: function (XMLHttpRequest, textStatus) {
+		                    setTimeout(longPolling,1000);
+		                },
+		                success: function (data, textStatus) {
+		                    data = JSON.parse(data);
+		                    var lastItem = data[data.length-1];
+		                    if(lastItem){
+		                        timeFlag = lastItem.created;
+		                    }
+		
+		                    data.forEach(function(item){
+		                        $("#messages-box").append("<dd class='receive'>"+item.username + ": "+item.content+"</dd>")
+		                    	
+		                    })
+		                    scrollEnd();
+		                    setTimeout(longPolling,1000);
+		                }
+		            });
+		
+		        }
+		        
+		        function scrollEnd(){
+		        		$('#messages-box').scrollTop( $('#messages-box')[0].scrollHeight );
+		        }
+		
+		        // start polling
+		        longPolling();
+		
+		        $("#send-button").click(function () {
+		            var content = $("#message-input").val();
+		            if(!content.trim()){
+		            		return ;
+		            }
+		            $("#messages-box").append("<dd class='to'>我:"+content+"</dd>")
+		            $("#message-input").val("");     
+		            scrollEnd();
+		            $.post(
+		                app.config.baseUrl + "tinda_admin/chat.php",
+		                {
+		                    username:"testuser",
+		                    content:content,
+		                    channelID:"10905947996256161278"
+		                },
+		                function(data){
+		                		if(data != 0){
+		                			alert("发送失败!");
+		                		}
+		                }
+		            )
+		        });
+		    });  
+});
 
-            $.ajax({
-                url: "http://localhost/tinda_admin/chat.php",
-                data:{
-                    username:"testuser",
-                    time:timeFlag,
-                    channelID:"10905947996256161278"
-                },
-                dataType: "text",
-                timeout: 10000,
-                error: function (XMLHttpRequest, textStatus) {
-                    setTimeout(longPolling,1000);
-                },
-                success: function (data, textStatus) {
-                    data = JSON.parse(data);
-                    var lastItem = data[data.length-1];
-                    if(lastItem){
-                        timeFlag = lastItem.created;
-                    }
-
-                    data.forEach(function(item){
-                        $("#messages-box").append("<dd class='receive'>"+item.username + ": "+item.content+"</dd>")
-                    	
-                    })
-                    scrollEnd();
-                    setTimeout(longPolling,1000);
-                }
-            });
-
-        }
-        
-        function scrollEnd(){
-        		$('#messages-box').scrollTop( $('#messages-box')[0].scrollHeight );
-        }
-
-        // start polling
-        longPolling();
-
-        $("#send-button").click(function () {
-            var content = $("#message-input").val();
-            if(!content.trim()){
-            		return ;
-            }
-            $("#messages-box").append("<dd class='to'>我:"+content+"</dd>")
-            $("#message-input").val("");     
-            scrollEnd();
-            $.post(
-                "http://localhost/tinda_admin/chat.php",
-                {
-                    username:"testuser",
-                    content:content,
-                    channelID:"10905947996256161278"
-                },
-                function(data){
-                		if(data != 0){
-                			alert("发送失败!");
-                		}
-                }
-            )
-        });
-    });  
-   
-             
-	 function toApplyLive(){
-		mui.openWindow({
-		    url:'applyLive.html',
-		    id:'applyLive'
-		});
-	 }
- </script>          
+			 function toApplyLive(){
+				mui.openWindow({
+				    url:'applyLive.html',
+				    id:'applyLive'
+				});
+			 }
+ 		</script>          
 </html>
