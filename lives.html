@@ -22,6 +22,9 @@
 				width:49%;
 				float:left;
 			}
+			#to-apply-live{
+				color:#003366;
+			}
 		</style>
 	</head>
 
@@ -29,7 +32,7 @@
 		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff;"></a>
 			<h1 class="mui-title">直播列表</h1>
-			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
+			<button id="to-apply-live" class="mui-pull-right mui-btn-link" onclick="toApplyLive()">我要直播</button>
 		</header>
 
 		<div class="mui-content" >
@@ -39,6 +42,9 @@
 
 			</div>
 			<div id="container">
+				
+			</div>
+			<div class="operations">
 				
 			</div>
 		</div>
@@ -74,7 +80,7 @@
 		
 		function loadLives(keyworkd){
 			var itemTemplate = [
-			'<div onclick="redirectToLiveDetail(\'{channel_id}\',\'{app_id}\',\'{title}\',\'{id}\')" class="mui-content">',
+			'<div onclick="redirectToLiveDetail(\'{channel_id}\',\'{app_id}\',\'{title}\',\'{id}\',\'{status}\')" class="mui-content">',
 			'				<div class="mui-card live-item">',
 			'					<div class="mui-card-header mui-card-media">',
 			'						<img src="{img}"  width="100%"/>',
@@ -104,6 +110,7 @@
 					result = result.replace("{img}",img);
 					result = result.replace("{id}",one.id);
 					result = result.replace("{status}",statusMap[one.status]);
+					result = result.replace("{status}",statusMap[one.status]);
 					result = result.replace("{created}", (new Date(one.created*1000)).Format("yyyy-MM-dd hh:mm:ss"));
 					
 					$container.append(result);
@@ -113,7 +120,7 @@
 		
 // 公共跳转部分
 
-function redirectToLiveDetail(channel_id,app_id,title,live_id){
+function redirectToLiveDetail(channel_id,app_id,title,live_id,status){
 	mui.openWindow({
 	        url:'live.html',
 	    id:'live',
@@ -121,10 +128,18 @@ function redirectToLiveDetail(channel_id,app_id,title,live_id){
 	    		channel_id:channel_id,
 	    		app_id:app_id,
 	    		title:title,
-	    		live_id:live_id
+	    		live_id:live_id,
+	    		status:status
 	    }
 	});
 }
+
+			 function toApplyLive(){
+				mui.openWindow({
+				    url:'applyLive.html',
+				    id:'applyLive'
+				});
+			 }
 
 	</script>
 </html>

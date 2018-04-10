@@ -16,31 +16,67 @@
 				padding: 10px;
 			}
 			#messages-box{
-	            height:150px;
+	            height:130px;
 	            overflow:scroll;
 	            font-size: 0.6em;
 	        }
 	        #messages-box{
-				
+				padding-right:10px;
 	        }
-	        
 	        #messages-box dd{
 	        		margin:0px;
 	            padding:5px;
 	            margin-left:5px;
+				margin-top:5px;
+				position:relative;
 	        }
-	        #messages-box .receive{
-				
+			#messages-box dd .content{
+				border: 1px solid #ddd;
+				border-radius: 5px;
+				display: inline-block;
+				width:calc(100% - 75px);
+				margin-left: 10px;
+				position:absolute;
+			}
+			
+	        #messages-box .receive .content{
+				border-top-left-radius: 0;
+				left:65px;
+				top:10px;
+				padding: 0 5px;
+				background: #FFFFFF;
 	        }
+	        
 	        #messages-box .to{
-				color:#FF0000;	            
+	        		text-align:right;
+	        }
+	        #messages-box .to .content{
+				color:#000;
+				background: #99CC00;
+				border-top-right-radius: 0;        
+				right:65px;
+				top:10px;
+				padding: 0 5px;
+				text-align:left;
 	        }
 	        #chat-form{
 	        		width:100%;
 	        		position: fixed;
-	        		bottom: 48px;
+	        		bottom: 78px;
 	        		padding-right: 59px;
 	        }
+	        .operations{
+	        		position: fixed;
+	        		width: 100%;
+				bottom: 60px;
+	        		height:30px;
+	        		display: flex;
+	        }
+	        .operations a{
+	        		flex:1;
+	        		text-align:center;
+	        }
+	        
 	        #send-button{
 	        		width:60px;
 	        		position:absolute;
@@ -50,8 +86,9 @@
 	        		top:0px;
 	        		right:0px;
 	        }
-	        .apply-live-button{
+	        .live-status{
 	        		float:right;
+	        		color:#000000;
 	        }
 		</style>
 	</head>
@@ -60,26 +97,31 @@
 		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff;"></a>
 			<h1 class="mui-title">直播</h1>
-			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
+
 		</header>
         <div class="mui-content">
         		<div class="top-bar">
-        			房间：<span id="host"></span>
-        			<span class="links">
-        				<a class="apply-live-button" onclick="toApplyLive()">我要直播</a>
+        			<span class="mui-icon mui-icon-person"></span><span id="host"></span>
+        			<span class="live-status">
+        				<span class="mui-icon-extra mui-icon-extra-classroom"></span>
+        				<span id="status-text">直播中</span>
         			</span>
         		</div>
       		<div id="id_video_container_10905947996255835126" style="width:100%;height:1px;"></div>
       		<div id="chat-room">
       			<div id="messages-box">
-      				
       			</div>
       			<div id="chat-form">
 				    <input type="text" id="message-input">
 				    <button id="send-button">发送</button>
-      			</div>
+	      		</div>
+
       		</div>
         </div>
+		<div class="operations">
+			<a class="apply-live-button" onclick="toRate()"> <span class="mui-icon-extra mui-icon-extra-like"></span>评分</a>
+			<a class="apply-live-button" onclick="toApplyLive()"><span class="mui-icon-extra mui-icon-extra-new"></span>我要直播</a>
+		</div>
 <!----底部---->
 		<div style="height:60px"></div>
 		<header class="mui-bar mui-bar-nav1" style="padding-right: 15px;height:60px">
@@ -104,6 +146,8 @@
             	   var liveWebView = plus.webview.getWebviewById('live');
             	   var title = liveWebView.title;
             	   $("#host").text(title);
+            	   $("#status-text").text(liveWebView.status);
+            	   
                var option ={"channel_id":liveWebView.channel_id,"app_id":liveWebView.app_id,"width":"1024","height":"768"};
                new qcVideo.Player(
                        /*代码中的id_video_container将会作为播放器放置的容器使用,可自行替换*/
@@ -111,11 +155,13 @@
                        option
                    );
              })()
+             
 			$(function () {
 					var url = app.config.baseUrl + "live/buyWithPoint.php";
 					var userszl = JSON.parse(localStorage.getItem("userzl"));
 					var userValue=userszl.name;
 					var liveWebView = plus.webview.getWebviewById('live');
+					
 			        mui.ajax(url,{ 
 			            data: {
 			            		username:userValue,
@@ -141,13 +187,16 @@
 				// chat box
 		        var timeFlag = 0;
 		        function longPolling() {
-		
+					var userszl = JSON.parse(localStorage.getItem("userzl"));
+					var userValue=userszl.name;
+					var liveWebView = plus.webview.getWebviewById('live');
+					
 		            $.ajax({
-		                url: app.config.baseUrl + "tinda_admin/chat.php",
+		                url: app.config.baseUrl + "chat.php",
 		                data:{
-		                    username:"testuser",
+		                    username:userValue,
 		                    time:timeFlag,
-		                    channelID:"10905947996256161278"
+		                    channelID:liveWebView.channel_id
 		                },
 		                dataType: "text",
 		                timeout: 10000,
@@ -155,6 +204,7 @@
 		                    setTimeout(longPolling,1000);
 		                },
 		                success: function (data, textStatus) {
+		                		
 		                    data = JSON.parse(data);
 		                    var lastItem = data[data.length-1];
 		                    if(lastItem){
@@ -162,9 +212,19 @@
 		                    }
 		
 		                    data.forEach(function(item){
-		                        $("#messages-box").append("<dd class='receive'>"+item.username + ": "+item.content+"</dd>")
-		                    	
+		                    		
+								var message = [
+								'					<dd class=\'receive\'>',
+								'						<span class="username">{username}</span>',
+								'						<div class="content">{content}</div>',
+								'					</dd>'
+								].join("");
+								message = message.replace("{username}",cutString(item.username,11));
+								message = message.replace("{content}",item.content);
+								
+		                        $("#messages-box").append(message);
 		                    })
+
 		                    scrollEnd();
 		                    setTimeout(longPolling,1000);
 		                }
@@ -184,15 +244,29 @@
 		            if(!content.trim()){
 		            		return ;
 		            }
-		            $("#messages-box").append("<dd class='to'>我:"+content+"</dd>")
+					var message = [
+					'					<dd class=\'to\'>',
+					'						<span class="username">{username}</span>',
+					'						<div class="content">{content}</div>',
+					'					</dd>'
+					].join("");
+					message = message.replace("{username}","我");
+					message = message.replace("{content}",content);
+		            $("#messages-box").append(message)
+		            
 		            $("#message-input").val("");     
 		            scrollEnd();
-		            $.post(
-		                app.config.baseUrl + "tinda_admin/chat.php",
+		            
+					var userszl = JSON.parse(localStorage.getItem("userzl"));
+					var userValue=userszl.name;
+					var liveWebView = plus.webview.getWebviewById('live');
+		          
+		            mui.post(
+		                app.config.baseUrl + "chat.php",
 		                {
-		                    username:"testuser",
+		                    username:userValue,
 		                    content:content,
-		                    channelID:"10905947996256161278"
+		                    channelID:liveWebView.channel_id
 		                },
 		                function(data){
 		                		if(data != 0){
@@ -210,5 +284,19 @@
 				    id:'applyLive'
 				});
 			 }
+			 
+			 function toRate(){
+				mui.openWindow({
+				    url:'rate.html',
+				    id:'rate'
+				});
+			 }
+			 
+function cutString(str, len) { 
+	if(str.length<=len){
+		return str;
+	}
+	return str.substr(0,len) + "..";
+ } 
  		</script>          
 </html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+		<style>
+			#popover{
+				width:100%;
+				height: 100%;
+				top:40px;
+				border-radius:0px;
+				text-align:center;
+			}
+			#popover .content{
+				min-height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff;"></a>
+			<h1 class="mui-title">评分投票</h1>
+			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
+		</header>
+        <div class="mui-content">
+        		<div class="apply-form">
+				<form class="mui-input-group" id="rate-form">
+					<input type="hidden" name="rate" value="0" />
+					<ul class="mui-table-view mui-table-view-radio">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" value="1">★</a>
+						</li>
+						<li class="mui-table-view-cell mui-selected">
+							<a class="mui-navigate-right" value="2">★★</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" value="3">★★★</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" value="4">★★★★</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" value="5">★★★★★</a>
+						</li>
+					</ul>
+				    <div class="mui-button-row">
+				        <button type="submit" class="mui-btn mui-btn-primary" id="submit-button">提交</button>
+				    </div>
+				</form>
+        		</div>
+        </div>
+		
+			
+		<!----底部---->
+		<div style="height:60px"></div>
+		<header class="mui-bar mui-bar-nav1" style="padding-right: 15px;height:60px">
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="homeA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-home"></span><p style="height:20px;">首页</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px"><a onclick="zlcxA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-search"></span><p style="height:20px;">资料查询</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="passcxA()" style="color:#FFFFFF;"><span style="height:20px;padding-top:11px;"  class="mui-icon-extra mui-icon-extra-cart"></span><p style="height:20px;">PIN码查询</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-videocam"></span><p style="height:20px;">视频直播</p></a></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="settingA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
+		</header>
+	</body>
+	
+	<script src="js/mui.min.js"></script>
+	<script src="js/zepto.min.js"></script>
+	<script src="js/app.js"></script>
+	<script>
+		
+		mui.init();
+	   	$(function () {	   		
+	   		$("#submit-button").click(function(event){
+	   			event.preventDefault();
+	   			var rate = $("input[name='rate']").val();
+				var userszl = JSON.parse(localStorage.getItem("userzl"));
+				var userValue=userszl.name;
+				var url = app.config.baseUrl + "live/rate.php";
+				var liveWebView = plus.webview.getWebviewById('live');
+				
+	   			if(rate == "0"){
+	   				plus.nativeUI.toast("请选择评分!");
+	   				return;
+	   			}
+	   			
+	   			mui.ajax(url,{ 
+			            data: {
+			            		live_id:liveWebView.live_id,
+			            		rate:rate,
+			            		username:userValue
+			            },
+			            dataType:'json',
+			            type:'post',
+			            success:function(data){
+			            		console.log(JSON.stringify(data));
+			            		
+							if(data.status){
+								plus.nativeUI.toast("评价成功！");
+							}else{
+								var message = data.message?data.message:"服务器错误!";
+								plus.nativeUI.toast(message);
+								setTimeout("mui.back()",500);
+								return;
+							}
+			        }
+			    });
+	   		})
+	   	});
+	   		
+		var list = document.querySelector('.mui-table-view.mui-table-view-radio');
+		list.addEventListener('selected',function(e){
+			$("input[name='rate']").val(e.detail.el.getAttribute("value"));
+		});
+   		
+	</script>         
+</html>
