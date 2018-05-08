@@ -244,7 +244,8 @@
 					"login.html",
 					"daip.html",
 					"1234.html",
-					"rj.html"
+					"rj.html",
+					"lives.html"
 				],
 				"priority": 1
 			},
@@ -628,6 +629,13 @@
 					"rjA.html"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"lives.html": {
+				"resources": [],
+				"refer": [
+					"live.html"
+				],
 				"priority": 0
 			}
 		},

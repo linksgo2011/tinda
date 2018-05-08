@@ -91,7 +91,7 @@
 		///////////////////////////////////////////////////////////////////////////
 		var userszl = JSON.parse(localStorage.getItem("userzl"));
 		dangqzf.innerText = '当前帐户：' + userszl.name; //帐户
-		var url = app.config.baseUrl + "usersxx.php";
+		var url = app.config.baseUrl + app.wrapTokenForUrl("usersxx.php");
 		mui.ajax(url, {
 			data: {
 				'sey': userszl.name

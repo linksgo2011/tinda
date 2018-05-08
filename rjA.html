@@ -56,7 +56,7 @@ var userszl = JSON.parse(localStorage.getItem("userzl"));
  
         //}
 ///////////////////////////////////////////////////////////////////////////
-var url = app.config.baseUrl + "rj.php";
+var url = app.config.baseUrl + app.wrapTokenForUrl("rj.php");
         mui.ajax(url,{ 
             data: {
                 'sey': "zlcx1",//关键字
@@ -98,7 +98,7 @@ var url = app.config.baseUrl + "rj.php";
 			function pulldownRefresh() {
 				setTimeout(function() {
         mui.init();
-var url = app.config.baseUrl + "rj.php";
+var url = app.config.baseUrl + app.wrapTokenForUrl("rj.php");
         mui.ajax(url,{ 
             data: {
                 'sey': "zlcx1",//关键字
@@ -151,7 +151,7 @@ var url = app.config.baseUrl + "rj.php";
 			 */
 			function pullupRefresh() {
 				setTimeout(function() {
-var url = app.config.baseUrl + "rj.php";
+var url = app.config.baseUrl + app.wrapTokenForUrl("rj.php");
         mui.ajax(url,{ 
             data: {
                 'sey': "zlcx1",//关键字

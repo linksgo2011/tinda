@@ -49,36 +49,10 @@
 		return;
 		}
     </script>
-<script>
-    function homeA(){
-	    mui.openWindow({
-        url:'main.html',
-        id:'main',
-        });
-    }
-    function zlcxA(){
-	    mui.openWindow({
-        url:'zlcx.html',
-        id:'zlcx',
-        });
-    }
-    function passcxA(){
-	    mui.openWindow({
-        url:'passcx.html',
-        id:'passcx',
-        });
-    }
-    function settingA(){
-	    mui.openWindow({
-        url:'setting.html',
-        id:'setting',
-        });
-    }
- 
-</script>
+    
 <script>
         mui.init();
-        var url = app.config.baseUrl + "td2017cx.php";
+        var url = app.config.baseUrl + app.wrapTokenForUrl("td2017cx.php");
         mui.ajax(url,{ 
             data: {
                 'type': 1,
@@ -158,7 +132,7 @@
 			function pulldownRefresh() {
 				setTimeout(function() {
         mui.init();
-        var url = app.config.baseUrl + "td2017cx.php";
+        var url = app.config.baseUrl + app.wrapTokenForUrl("td2017cx.php");
         mui.ajax(url,{ 
             data: {
                 'type': 1,
@@ -214,7 +188,7 @@
 				setTimeout(function() {
 					mui('#pullrefresh').pullRefresh().endPullupToRefresh(); //参数为true代表没有更多数据了。
         mui.init();
-        var url = app.config.baseUrl + "td2017cx.php";
+        var url = app.config.baseUrl + app.wrapTokenForUrl("td2017cx.php");
         mui.ajax(url,{ 
             data: {
                 'type': 1,

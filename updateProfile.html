@@ -76,7 +76,7 @@
 		<script>
 			
 			// 获取用户信息
-			var url = app.config.baseUrl + "usersxx.php";
+			var url = app.config.baseUrl + app.wrapTokenForUrl("usersxx.php");
 			var userszl = JSON.parse(localStorage.getItem("userzl"));
 			
 			mui.ajax(url, {
@@ -113,7 +113,7 @@
 					return;
 				}
 
-				mui.post(app.config.baseUrl + 'updateProfile.php', {
+				mui.post(app.config.baseUrl + app.wrapTokenForUrl('updateProfile.php'), {
 						title:userszl.name,
 						email:email,
 						area:area,

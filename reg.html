@@ -127,7 +127,7 @@
 					return;
 				}
 
-				mui.post(app.config.baseUrl + 'reguser.php', {
+				mui.post(app.config.baseUrl + app.wrapTokenForUrl('reguser.php'), {
 						regtitle: regtitle,
 						regpass1: regpass1,
 						regemail: regemail,

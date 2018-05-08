@@ -65,7 +65,7 @@ function GetQueryString(name)
 }
 //dpbody.innerText = GetQueryString("id");
 ///////////////////////////////////////////////////////////////////////////
-        var url = app.config.baseUrl + "daip.php";
+        var url = app.config.baseUrl + app.wrapTokenForUrl("daip.php");
         mui.ajax(url,{ 
             data: {
                 'sey': GetQueryString("id")

@@ -127,7 +127,7 @@
 				var userValue=userszl.name;
 				formData['username'] = userValue;
 				
-				var url = app.config.baseUrl + "live/applyLive.php";
+				var url = app.config.baseUrl + app.wrapTokenForUrl("live/applyLive.php");
 		        mui.ajax(url,{ 
 		            data: formData,
 		            dataType:'json',

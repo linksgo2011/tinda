@@ -144,7 +144,7 @@
 		return;
 		}
 ///////////////////////////////////////////////////////////////////////////
-        var url = app.config.baseUrl + "homegg.php";
+        var url = app.config.baseUrl + app.wrapTokenForUrl("homegg.php");
         mui.ajax(url,{ 
             data: {
                 'sey': 1
@@ -175,7 +175,7 @@
 */
 /////////////////////////
 // 获取并初始化轮播组件
-        var url = app.config.baseUrl + "indexlz.php";
+        var url = app.config.baseUrl + app.wrapTokenForUrl("indexlz.php");
         mui.ajax(url,{ 
             data: {
                 'type': 1,
@@ -282,53 +282,5 @@
 
 			}(mui, document));
 		</script>
-<script>
-    function homeA(){
-	    mui.openWindow({
-        url:'main.html',
-        id:'main',
-        });
-    }
-    
-        function rj(){
-	    mui.openWindow({
-        url:'rj.html',
-        id:'rj',
-        });
-    }
-    
-    
-    function zlcxA(){
-	    mui.openWindow({
-        url:'zlcx.html',
-        id:'zlcx',
-        });
-    }
-    function passcxA(){
-	    mui.openWindow({
-        url:'passcx.html',
-        id:'passcx',
-        });
-    }
-    function settingA(){
-	    mui.openWindow({
-        url:'setting.html',
-        id:'setting',
-        });
-    }
-    function aboutd(){
-	    mui.openWindow({
-        url:'daip.html?id=about',
-        id:'about',
-        });
-    }
-    
-    function redirectToLives(){
-    		    mui.openWindow({
-        url:'lives.html',
-        id:'lives',
-        });
-    }
-</script>
 	</body>
 </html>

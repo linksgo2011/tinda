@@ -67,7 +67,7 @@ mui.init();
  
         //}
 ///////////////////////////////////////////////////////////////////////////
-var url = app.config.baseUrl + "td2017cx.php";
+var url = app.config.baseUrl + app.wrapTokenForUrl("td2017cx.php");
         mui.ajax(url,{ 
             data: {
                 'sey': "zlcx1",//关键字
@@ -128,33 +128,7 @@ var url = app.config.baseUrl + "td2017cx.php";
             });
         });
     </script>
-<script>
-    function homeA(){
-	    mui.openWindow({
-        url:'main.html',
-        id:'main',
-        });
-    }
-    function zlcxA(){
-	    mui.openWindow({
-        url:'zlcx.html',
-        id:'zlcx',
-        });
-    }
-    function passcxA(){
-	    mui.openWindow({
-        url:'passcx.html',
-        id:'passcx',
-        });
-    }
-    function settingA(){
-	    mui.openWindow({
-        url:'setting.html',
-        id:'setting',
-        });
-    }
- 
-</script>
+    
 	</body>
 
 </html>

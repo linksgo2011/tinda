@@ -157,7 +157,7 @@
              })()
              
 			$(function () {
-					var url = app.config.baseUrl + "live/buyWithPoint.php";
+					var url = app.config.baseUrl + app.wrapTokenForUrl("live/buyWithPoint.php");
 					var userszl = JSON.parse(localStorage.getItem("userzl"));
 					var userValue=userszl.name;
 					var liveWebView = plus.webview.getWebviewById('live');
@@ -192,7 +192,7 @@
 					var liveWebView = plus.webview.getWebviewById('live');
 					
 		            $.ajax({
-		                url: app.config.baseUrl + "chat.php",
+		                url: app.config.baseUrl + app.wrapTokenForUrl("chat.php"),
 		                data:{
 		                    username:userValue,
 		                    time:timeFlag,
@@ -262,7 +262,7 @@
 					var liveWebView = plus.webview.getWebviewById('live');
 		          
 		            mui.post(
-		                app.config.baseUrl + "chat.php",
+		                app.config.baseUrl + app.wrapTokenForUrl("chat.php"),
 		                {
 		                    username:userValue,
 		                    content:content,

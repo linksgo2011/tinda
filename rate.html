@@ -78,7 +78,7 @@
 	   			var rate = $("input[name='rate']").val();
 				var userszl = JSON.parse(localStorage.getItem("userzl"));
 				var userValue=userszl.name;
-				var url = app.config.baseUrl + "live/rate.php";
+				var url = app.config.baseUrl + app.wrapTokenForUrl("live/rate.php");
 				var liveWebView = plus.webview.getWebviewById('live');
 				
 	   			if(rate == "0"){

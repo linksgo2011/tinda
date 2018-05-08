@@ -49,7 +49,7 @@ mui.init();
  
         //}
 ///////////////////////////////////////////////////////////////////////////
-var url = app.config.baseUrl + "td2017cx.php";
+var url = app.config.baseUrl + app.wrapTokenForUrl("td2017cx.php");
         mui.ajax(url,{ 
             data: {
                 'sey': "zlcx1",//关键字
@@ -130,7 +130,7 @@ var url = app.config.baseUrl + "td2017cx.php";
 			function pulldownRefresh() {
 				setTimeout(function() {
         mui.init();
-var url = app.config.baseUrl + "td2017cx.php";
+var url = app.config.baseUrl + app.wrapTokenForUrl("td2017cx.php");
         mui.ajax(url,{ 
             data: {
                 'sey': "zlcx1",//关键字
@@ -183,7 +183,7 @@ var url = app.config.baseUrl + "td2017cx.php";
 			 */
 			function pullupRefresh() {
 				setTimeout(function() {
-var url = app.config.baseUrl + "td2017cx.php";
+var url = app.config.baseUrl + app.wrapTokenForUrl("td2017cx.php");
         mui.ajax(url,{ 
             data: {
                 'sey': "zlcx1",//关键字
