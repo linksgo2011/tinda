@@ -212,10 +212,20 @@ Array.prototype.contain = function(val) {
 function checkPermission(feature) {
 	var features = JSON.parse(localStorage.getItem("permission"));
 	if(!features.contain(feature)) {
-		mui.toast("请到注册页面自助开通VIP账户！");
+		mui.toast("请扫描二维码开通VIP账户！");
+		showQrImage();
+		
 		return false;
 	}
 	return true;
+}
+
+function showQrImage(){
+	$('#code').show();
+	$('#goodcover').unbind().bind("click",function(){
+		        $('#goodcover').hide();
+				$('#code').hide();
+	}).show();
 }
 
 function zlcxA() {

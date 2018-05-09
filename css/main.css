@@ -24,7 +24,8 @@ a,img{border:0;}
 	padding: 10px;
 	position: absolute;
 	display: none;
-	left: 45%;
+	left: calc(50% - 150px);
+	top: 200px;
 	z-index: 1002;
 }
 .close1 {
