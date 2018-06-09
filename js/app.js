@@ -6,7 +6,7 @@
 	owner.config = {
 		//		baseUrl:"http://www.1008691.club/"
 		baseUrl: "http://admin.tengdakey.com/"
-//				baseUrl:"http://localhost/tinda_admin/"
+		//				baseUrl:"http://localhost/tinda_admin/"
 	}
 	/**
 	 * 用户登录
@@ -45,7 +45,7 @@
 				},
 				function(response) {
 					response = JSON.parse(response);
-					
+
 					if(response.status == 200) {
 						localStorage.setItem('username', loginInfo.account);
 						localStorage.setItem('usertoke', loginInfo.usertoke);
@@ -214,28 +214,33 @@ function checkPermission(feature) {
 	if(!features.contain(feature)) {
 		mui.toast("请扫描二维码开通VIP账户！");
 		showQrImage();
-		
+
 		return false;
 	}
 	return true;
 }
 
-function showQrImage(){
+function showQrImage() {
 	$('#code').show();
-	$('#goodcover').unbind().bind("click",function(){
-		        $('#goodcover').hide();
-				$('#code').hide();
+	$('#goodcover').unbind().bind("click", function() {
+		$('#goodcover').hide();
+		$('#code').hide();
 	}).show();
 }
 
-function zlcxA() {
+function zlcxA(module) {
 	if(!checkPermission('zlcx')) {
 		return;
 	}
 
+	module = module || "data";
+
 	mui.openWindow({
 		url: 'zlcx.html',
 		id: 'zlcx',
+		extras: {
+			module: module //扩展参数
+		}
 	});
 }
 
@@ -279,6 +284,9 @@ function aboutd() {
 }
 
 function redirectToLives() {
+	mui.toast('开发中，谢谢关注！');
+	return;
+
 	mui.openWindow({
 		url: 'lives.html',
 		id: 'lives',
