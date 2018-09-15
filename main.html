@@ -18,6 +18,13 @@
 			.mui-btn {
 				padding: 10px;
 			}
+			marquee{
+				display: inline;
+				width: 83%;
+				margin-left: 10px;
+				line-height: 14px;
+				margin-bottom: -2px;
+			}
 		</style>
 	</head>
 
@@ -39,7 +46,7 @@
 			</div>
 		</div>
 		<h5 class="mui-media-body" style="background-color:#efeff4;line-height:25px;height:25px;padding:0 8px 0 8px;color:#ff0000;font-size:11px;">
-		    	公告&nbsp;<span class="mui-icon mui-icon-chatboxes" style="font-size:14px;"></span>：</span><b id="homegg"></b>
+		    	公告&nbsp;<span class="mui-icon mui-icon-chatboxes" style="font-size:14px;"></span>：</span><marquee id="homegg"></marquee>
 		    </h5>
 		<!--div class="mui-content">
 			<div class="mui-content-padded">
@@ -203,7 +210,7 @@
 				},
 				dataType: 'json', //服务器返回json格式数据
 				type: 'post', //HTTP请求类型
-				timeout: 10000, //超时时间设置为10秒；
+				timeout: 5000, //超时时间设置为5秒；
 				success: function(data) {
 					var songs = data;
 					mui.each(songs, function(index, item) {
