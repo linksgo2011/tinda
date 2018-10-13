@@ -320,3 +320,10 @@ function gx() {
 		id: 'gx',
 	});
 }
+
+function vinmQuery() {
+	mui.openWindow({
+		url: 'vinmQuery.html',
+		id: 'vinmQuery',
+	});
+}

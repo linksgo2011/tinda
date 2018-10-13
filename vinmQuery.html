@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="js/mui.css"/>
+		<script src="js/mui.js"></script>
+		<script type="text/javascript" src="js/bughd.min.js.js" crossOrigin="anonymous"></script>
+
+<link href="css/mui.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/icons-extra.css" />
+
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#ffffff;"></a>
+			<h1 class="mui-title">腾达云平台</h1>
+			<button id='setting' class=" mui-pull-right mui-btn-link"></button>
+
+		</header>
+    <div class="mui-content">
+        <p style="text-align:center;color:#0000ff;padding-top:8px;height:25px;" id="title"><b>VINM码查询</b></p>
+       
+		<form class="mui-input-group" style="padding-right:12px;">
+					<div class="mui-input-row mui-plus-visible">
+						<label><span class="mui-icon-extra mui-icon-extra-calendar"></span>车架号</label>
+						<input type="text" name="pacjh" placeholder="车架号必须大写">
+					</div>
+					
+					<div id="PINpass" style="font-size:15px;color:#ff0000;line-height:30px;text-align:center;"></div>
+					<div id="tip" style="font-size:15px;color:#ff0000;line-height:30px;text-align:center;"></div>
+		</form>
+
+       </div>
+    </div>
+<!----底部---->
+		<div style="height:60px"></div>
+		<header class="mui-bar mui-bar-nav1" style="padding-right: 15px;height:60px">
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="homeA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-home"></span><p style="height:20px;">首页</p></a></div>
+			<div style="width:60%;float:left;text-align:center;font-size:2px"><button type="button" id="searchButton" onclick="handleQuery()" class="mui-btn" style="height:45px;font-size:16px">提交查询</button></div>
+			<div style="width:20%;height:50px;float:left;text-align:center;font-size:11px;"><a onclick="settingA()" style="color:#FFFFFF;"><span style="height:20px;" class="mui-icon mui-icon-bars"></span><p style="height:20px;">更多</p></a></div>
+		</header>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script LANGUAGE="JavaScript"> 
+			function handleQuery(){
+				var carFrameCode = document.querySelector('input[name="pacjh"]').value;
+				if(!/[0-9a-zA-Z]{17}/.test(carFrameCode)){
+					mui.toast('车架码格式有误!<br />由大写字母(O,I外)和数字组成的17位编码。');
+					return;
+				}
+				
+				mui.get("http://45.114.124.205:520/?type=524&vinm="+carFrameCode+"&CarType=30&sqm=12345678",function(rs){
+					document.getElementById("PINpass").innerHTML = rs;
+				})
+			}
+	
+		</script>
+	</body>
+</html>
