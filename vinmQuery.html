@@ -22,7 +22,7 @@
 
 		</header>
     <div class="mui-content">
-        <p style="text-align:center;color:#0000ff;padding-top:8px;height:25px;" id="title"><b>VINM码查询</b></p>
+        <p style="text-align:center;color:#0000ff;padding-top:8px;height:25px;" id="title"><b>车辆信息查询</b></p>
        
 		<form class="mui-input-group" style="padding-right:12px;">
 					<div class="mui-input-row mui-plus-visible">
@@ -30,7 +30,7 @@
 						<input type="text" name="pacjh" placeholder="车架号必须大写">
 					</div>
 					
-					<div id="PINpass" style="font-size:15px;color:#ff0000;line-height:30px;text-align:center;"></div>
+					<pre id="PINpass" style="font-size:15px;color:#ff0000;line-height:30px;text-align:center;"></pre>
 					<div id="tip" style="font-size:15px;color:#ff0000;line-height:30px;text-align:center;"></div>
 		</form>
 
@@ -46,6 +46,7 @@
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script LANGUAGE="JavaScript"> 
+
 			function handleQuery(){
 				var carFrameCode = document.querySelector('input[name="pacjh"]').value;
 				if(!/[0-9a-zA-Z]{17}/.test(carFrameCode)){
@@ -53,7 +54,7 @@
 					return;
 				}
 				
-				mui.get("http://45.114.124.205:520/?type=524&vinm="+carFrameCode+"&CarType=30&sqm=12345678",function(rs){
+				mui.get(app.config.baseUrl + app.wrapTokenForUrl("vinmQuery.php") + "&vinm="+carFrameCode,function(rs){
 					document.getElementById("PINpass").innerHTML = rs;
 				})
 			}

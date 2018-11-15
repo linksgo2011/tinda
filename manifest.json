@@ -171,7 +171,7 @@
 					"xxhdpi": "images/1080X1882.png","hdpi":"images/and-480X800.png","xhdpi":"images/and-720X1280.png"
 				}
 			}
-		},"ads":{"rp":false,"splash":false,"push":false,"spot":false},"adid":""
+		},"ads":{"rp":false,"splash":false,"push":false,"spot":false}
 	},
 	"dependencies": {
 		"pages": {
@@ -245,7 +245,8 @@
 					"daip.html",
 					"1234.html",
 					"rj.html",
-					"lives.html"
+					"lives.html",
+					"vinmQuery.html"
 				],
 				"priority": 1
 			},
@@ -635,6 +636,13 @@
 				"resources": [],
 				"refer": [
 					"live.html"
+				],
+				"priority": 0
+			},
+			"vinmQuery.html": {
+				"resources": [],
+				"refer": [
+					"vinmQuery.html"
 				],
 				"priority": 0
 			}

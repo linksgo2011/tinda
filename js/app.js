@@ -260,6 +260,7 @@ function homeA() {
 		url: 'main.html',
 		id: 'main',
 	});
+	
 }
 
 function rj() {
@@ -325,5 +326,28 @@ function vinmQuery() {
 	mui.openWindow({
 		url: 'vinmQuery.html',
 		id: 'vinmQuery',
+	});
+}
+
+function provideData() {
+	mui.openWindow({
+		url: 'daip.html?id=provideData',
+		id: 'provideData',
+	});
+}
+
+function joinUs() {
+	mui.openWindow({
+		url: 'daip.html?id=joinUs',
+		id: 'joinUs',
+	});
+}
+
+function secondHand(){
+	mui.openWindow({
+//		url: app.wrapTokenForUrl("http://192.168.31.183/tinda_admin/secon_hand"),
+		url: app.wrapTokenForUrl("http://admin.tengdakey.com/secon_hand"),
+		id: 'secondHand',
+		createNow:true
 	});
 }
