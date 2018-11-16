@@ -46,16 +46,20 @@
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script LANGUAGE="JavaScript"> 
-
+			
+			
 			function handleQuery(){
 				var carFrameCode = document.querySelector('input[name="pacjh"]').value;
 				if(!/[0-9a-zA-Z]{17}/.test(carFrameCode)){
 					mui.toast('车架码格式有误!<br />由大写字母(O,I外)和数字组成的17位编码。');
 					return;
 				}
-				
+				var searchButton = document.getElementById("searchButton");
+				searchButton.disabled = true;
+				document.getElementById("PINpass").innerHTML = "查询中..."
 				mui.get(app.config.baseUrl + app.wrapTokenForUrl("vinmQuery.php") + "&vinm="+carFrameCode,function(rs){
 					document.getElementById("PINpass").innerHTML = rs;
+					searchButton.disabled = false;
 				})
 			}
 	

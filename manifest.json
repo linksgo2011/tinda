@@ -238,7 +238,10 @@
 					"l-videos.html",
 					"passcx.html",
 					"/images/banner1.jpg",
-					"/images/banner2.jpg"
+					"/images/banner2.jpg",
+					"css/main.css",
+					"images/icon-vin.png",
+					"images/icon9.png"
 				],
 				"refer": [
 					"login.html",
@@ -304,7 +307,8 @@
 					"images/sinaweibo.png",
 					"images/weixin.png",
 					"images/logo.png",
-					"images/login-bj.jpg"
+					"images/login-bj.jpg",
+					"css/main.css"
 				],
 				"refer": [
 					"unlock.html",
